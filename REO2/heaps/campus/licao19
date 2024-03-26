@@ -1,0 +1,25 @@
+1- Considere as seguintes afirmativas:
+I) Um torneio é uma árvore estritamente binária na qual cada nó não folha (pai)
+contém uma cópia do maior elemento entre seus dois filhos.
+II) O conteúdo das folhas de um torneio determina o conteúdo de todos os seus nós.
+III)  A ordem de classificação é obtida retirando-se a raiz e reorganizando os elementos do torneio,
+ mas mantendo a classificação parcial já realizada.
+É correto afirmar que:
+R) Todas as afirmativas estão corretas.
+
+2- Considere as seguintes afirmativas:
+I) Se as folhas estivessem todas cheias, a capacidade total a ser alocada seria 2k - 1.
+Nesse caso, os dados ocupariam metade do espaço, ou seja 2k-1.
+II) Após cópia dos dados, é necessário agora arrumar o torneio. 
+A função arruma(), assim como no maxheap, consiste em chamar uma função auxiliar do meio até o início para ir corrigindo os 
+elementos. No caso do torneio, há troca de valores. Além disso, como os dados estão apenas nas folhas, há necessidade 
+de descer aos níveis mais baixos como na corrigeDescendo() do heap. Assim, vamos chamar esse método de copiaMaior().
+III)  Usualmente, torneios são construídos a partir de dados em vetores. 
+Entretanto, apesar de um pouco mais trabalhoso, não é complicado adicionar inserção em torneios.
+Nesse caso é necessário criar o vetor com a capacidade desejada (de maneira similar ao tamanho do vetor)
+e marcar posições não utilizadas como inválidas. A inserção é feita sempre no nó raiz, cuja posição é possível
+de encontrar usando tamanho e posição da primeira folha (inicioVetorDeDados). Após a inserção, 
+é necessário ir copiando o valor inserido até a raiz ou até encontrar um valor que seja maior que ele. 
+O funcionamento é idêntico à corrigeSubindo(). 
+É correto afirmar que:
+R) Todas as afirmativas estão incorretas.
