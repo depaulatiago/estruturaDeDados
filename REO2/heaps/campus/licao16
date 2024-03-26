@@ -1,0 +1,30 @@
+1-Considere as seguintes afirmações sobre as operações sobre heap:
+I) Heaps são tradicionalmente implementados em arranjos, para melhor eficiência das operações.
+II) A implementação em arranjos só é adequada (e comum) por conta das características intrínsecas
+dessa estrutura de dados (ser uma árvore binária completa e balanceada).
+III) Como a raiz é única, e a capacidade quase dobra (com um elemento a menos) a cada passo,
+a capacidade do heap, se utilizada todas as posições, será da grandeza de (2k)-1.
+IV) Um heap é uma forma prática e eficiente de implementar filas de prioridade.
+V) A estrutura de um heap, apesar de mais complexa que as outras estruturas já vistas (pilha e fila)
+neste curso, possui uma remoção mais fácil que a demais, não necessitando de nenhum procedimento extra para a sua manutenção.
+É correto afirmar que: 
+R)I, II, IV
+
+2- Caso um elemento seja menor que um de seus filhos,
+efetua-se a troca de valores e repete-se o processo no nó filho:
+R)Corrige descendo
+Caso um elemento seja maior que seu pai,
+efetua-se a troca de valores e repete-se o processo no nó pai:
+R)Corrige subindo
+
+3-Utilizada na retirada da raiz:
+R)Corrige descendo
+Utilizada na inserção de um novo elemento no heap:
+R)Corrige subindo
+
+4-Considere o seguinte vetor:
+94, 113, 89, 146, 100, 122, 68,  18,  5,  110,  4,  127,  50,  93,
+118,  95,  9,  140,  65,  31,  125,  111,  59,  23,  123,  14,  56,
+149,  63,  96,  142,  21,  13,  16,  143,  109,  3,  80,  108,  128,  34,  78.
+Para construir um minheap a partir destes elementos, qual será o primeiro elemento a aplicar o corrige-descendo? 
+R)125
