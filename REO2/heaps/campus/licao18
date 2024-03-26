@@ -1,0 +1,60 @@
+1-Considere os seguinte métodos:
+I) corrige-descendo()
+II) corrige-esquerda()
+III) corrige-direita()
+IV) corrige-subindo()
+V) corrige-valor()
+VI) insere()
+VII) retira-raiz()
+VIII) alterna-elemento()
+IX) converte-MaxMin()
+X) heapify()
+XI) converte-MinMax()
+XII) constroi-heap()
+XIII) desarruma()
+XIV) arruma()
+É correto afirmar que os seguintes métodos são suficiente para uma implementação completa de heap:
+R) Somente os métodos I, IV, VI, VII, X, XII e XIV são necessários.
+
+2-Considere os seguinte métodos:
+I) corrige-descendo()
+II) corrige-esquerda()
+III) corrige-direita()
+IV) corrige-subindo()
+V) corrige-valor()
+VI) insere()
+VII) retira-raiz()
+VIII) alterna-elemento()
+IX) converte-MaxMin()
+X) heapify()
+XI) converte-MinMax()
+XII) constroi-heap()
+XIII) desarruma()
+XIV) arruma()
+É correto afirmar que os seguintes métodos são suficiente para uma implementação de heap:
+R) Somente os métodos I, VII, X, XII e XIV são necessários.
+
+3-Considerando-se arranjos começando em posição zero. Faça a associação pertinente.
+(i-1)/2
+R) pai(i)
+2i + 1
+R) esquerdo(i)
+2i + 2
+R) direito(i)
+
+4- Considerando-se arranjos começando em posição 1. Faça a associação pertinente.
+(i)/2
+R) pai(i)
+2i
+R) esquerdo(i)
+2i + 1
+R) direito(i)
+
+5- Considere as seguintes afirmativas
+I) Considera-se quebra de estrutura acessar diretamente o arranjo de dados em um heap. Assim, um método para impressão dos dados só seria aceito em implementações didáticas ou para depuração.
+II) Em algumas situações, é permitido o acesso (mas sem retirada) ao elemento raiz, espiando-o.
+III) Um heap também pode ser utilizado para ordenar vetores, através do método radixsort.
+IV) O radixsort é um método de ordenação que consiste na construção de um heap a partir dos dados de um vetor. Pode-se usar um maxheap ou minheap, dependendo como os dados são trabalhados.
+V) No radixsort, até que o heap fique vazio, os elementos do heap são retirados um por um, produzindo uma ordenação dos dados.
+É correto afirmar que:
+R)Somente as afirmativas I, II
