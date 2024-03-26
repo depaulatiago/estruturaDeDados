@@ -1,0 +1,66 @@
+1- Considere as seguintes afirmações sobre as operações sobre heap:
+I) Uma árvore é um tipo especial de garfo.
+II) Um grafo G(T,P) é formado por um conjunto de vértices (T) e um subconjunto de pares de T,
+chamados arestas (P). As arestas ligam justamente os vértices do grafo.
+III) Um caminho no grafo é qualquer conjunto de arestas que leva de um nó a outro
+IV) Um dígrafo é um grafo onde os pares de arestas são ordenados.
+V) Um grafo é conexo se existe um dígrafo entre dois nós diferentes do mesmo grafo.
+VI) Uma árvore é um grafo conexo e cíclico. 
+VII) Um grafo é cíclico se existe algum nó que possui um caminho que volta a ele passando por outros nós.
+É correto afirmar que:
+R) II, III , IV, VII
+
+2-Considere as seguintes afirmações sobre heaps:
+I) Uma árvore é enraizada se um vértice é escolhido como especial, chamado raiz.
+II) Dado um nó específico de uma árvore enraizada, seus filhos são os nós que estão ligados diretamente a
+ele em um nível superior.
+III) A raiz de uma árvore, em geral,  é de grande importância visto que é o elemento que dá acesso a estrutura.
+É correto afirmar que:
+R) I,III
+
+3-Faça a associação que seja pertinente.
+Número de nós filhos
+R) Grau
+Distância (número de arestas) até a raiz. 
+R) Profundidade
+Maior profundidade
+R) Altura da árvore
+Maior grau de seus nós.
+R) Grau da árvore
+Cada nó é maior que seus filhos e descendentes
+R) MaxHeap
+cada nó é menor que seus filhos e descendentes
+R) MinHeap
+
+4-Considere as seguintes afirmações sobre heaps:
+I) Um heap é uma árvore binária balanceada e completa.
+II) Uma árvore é considerada balanceada quando todos os nós estão no mesmo nível ou no máximo com um nível de diferença.
+III) Uma árvore é completa, quando, com exceção das folhas, todos os nós possuem o mesmo grau da árvore.
+É correto afirmar que:
+R) I,III
+
+5-Utilizando todo o conhecimento aprendido e a seguinte árvore:
+O nó raiz é?
+R) 35
+
+6-Utilizando todo o conhecimento aprendido e a seguinte árvore:
+Selecione a opção que contenha todos os nós folhas da estrutura.
+R) 1, 17, 23, 31, 37, 58, 63 e 99
+
+7-Utilizando todo o conhecimento aprendido e a seguinte árvore:
+Selecione a opção que contenha todos os nós no mesmo nível
+R) 1, 17, 23, 32, 37, 58 e 99
+
+8-Utilizando todo o conhecimento aprendido e a seguinte árvore:
+Selecione a opção que contenha o grau da árvore.
+R) 3
+
+9-Utilizando todo o conhecimento aprendido e a seguinte árvore:
+Selecione a opção que contenha a altura da árvore.
+R) 5 
+
+10-A seguinte árvore é completa?
+R) Sim
+
+
+

@@ -1,0 +1,6 @@
+1-Considere as seguintes afirmações sobre as operações sobre heap:
+I) A retirada de um elemento no heap só é possível no topo.
+II) Após a retirada, o heap deve ser reorganizado. Para isso, troca-se a raiz com o último elemento, aplicando-se corrige-subindo na nova raiz.
+III) A inserção é sempre feita após a posição final do heap, chamando-se o corrige-descendo logo em seguida.
+É correto afirmar que:
+R)I
