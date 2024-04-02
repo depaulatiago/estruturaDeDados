@@ -40,39 +40,30 @@ Nome: sala Tipo: s Valor: 150
 
 using namespace std;
 
-typedef int Item;
+typedef int TipoItem;
 
 const int max_itens = 100;
-
-struct Item
-{
-     string nome;
-     string tipo;
-     int valor;
-     Item *prox;
-};
 
 class Pilha
 {
 private:
      int tamanho;
-     Item **estrutura; // Use a stack of pointers to Item objects
+     int *estrutura;
 
 public:
      Pilha();
      ~Pilha();
      bool estaCheia();
      bool estaVazia();
-     void inserir(Item *item); // Update the parameter type to Item*
-     Item* remover(); // Update the return type to Item*
+     void inserir(TipoItem item);
+     TipoItem remover();
      void imprimir();
-     Item limpar();
 };
 
 Pilha::Pilha()
 {
      tamanho = 0;
-     estrutura = new Item*[max_itens]; // Allocate memory for pointers to Item objects
+     estrutura = new TipoItem[max_itens];
 }
 
 Pilha::~Pilha()
@@ -90,7 +81,7 @@ bool Pilha::estaVazia()
      return (tamanho == 0);
 }
 
-void Pilha::inserir(Item *item) // Update the parameter type to Item*
+void Pilha::inserir(TipoItem item)
 {
      if (estaCheia())
      {
@@ -103,12 +94,12 @@ void Pilha::inserir(Item *item) // Update the parameter type to Item*
      }
 }
 
-Item* Pilha::remover() // Update the return type to Item*
+TipoItem Pilha::remover()
 {
      if (estaVazia())
      {
           cout << "A pilha está vazia!\n";
-          return nullptr;
+          return 0;
      }
      else
      {
@@ -123,40 +114,40 @@ void Pilha::imprimir()
      {
           for (int i = 0; i < tamanho; i++)
           {
-               cout << " [ " << estrutura[i]->valor << " ] "; // Access the value of the Item object using the pointer
+               cout << " [ " << estrutura[i] << " ] ";
           }
-     }
-}
-
-Item Pilha::limpar()
-{
-     while(!estaVazia())
-     {
-          remover();
      }
 }
 
 int main()
 {
      Pilha p1;
-     char opc;
+     int opc;
 
      do
      {
+          cout << "0 - Sair\n";
+          cout << "1 - Inserir\n";
+          cout << "2 - Remover\n";
+          cout << "3 - Imprimir\n";
           cin >> opc;
           switch (opc)
           {
-          case 'i':
-               Item* valorInserir = new Item(); // Create a new Item object
+          case 1:
+               TipoItem valorInserir;
                cout << "Digite um valor para inserir: ";
-               cin >> valorInserir->valor; // Read the value into valorInserir
-               p1.inserir(valorInserir); // Pass the address of valorInserir to the inserir function
+               cin >> valorInserir;
+               p1.inserir(valorInserir);
                break;
-          case 'r':
+          case 2:
                p1.remover();
                break;
-          case 'f':
-               p1.limpar();
+          case 3:
+               p1.imprimir();
+               break;
+          default:
+               opc = 0;
+               break;
           }
 
      } while (opc != 0);
