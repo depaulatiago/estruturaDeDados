@@ -30,131 +30,99 @@ Exemplo de Saída:
 
 13
 */
-
 #include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <vector>
+
 using namespace std;
 
-typedef int dado;
-
-class torneio
-{
-private:
-    int *heap;
-    int tamanho;
-    int capacidade;
-    int inicioDados;
-    inline int pai(int filho);
-    inline int esquerda(int getPai);
-    inline int direita(int getPai);
-    void arruma();
-    void compete(int i);
-
-public:
-    torneio(int vet[], int tam);
-    ~torneio();
-    void verBaseMaior();
+struct Participante {
+    int valorBase;
+    int valorRelativo;
 };
 
-// Construtor da classe
-torneio::torneio(int vet[], int tam)
-{
-    capacidade = 1;
-    while (capacidade < tam)
-    {
-        capacidade *= 2;
-    }
+class Torneio {
+    vector<Participante> heap;
 
-    capacidade = capacidade - 1 + tam;
-
-    heap = new dado[capacidade];
-    inicioDados = capacidade - tam;
-
-    memcpy(&heap[inicioDados], vet, tam * sizeof(dado));
-
-    tamanho = tam;
-    arruma();
-}
-
-// Destrutor da classe
-torneio::~torneio()
-{
-    delete[] heap;
-}
-
-// Retorno a posição do nó pai de um determinado elemento
-int torneio::pai(int filho)
-{
-    return (filho - 1) / 2;
-}
-
-// Retorna o filho à esquerda de um determinado nó
-int torneio::esquerda(int pai)
-{
-    return 2 * pai + 1;
-}
-
-// Retorna o filho à direita do nó pai
-int torneio::direita(int pai)
-{
-    return 2 * pai + 2;
-}
-
-// Faz a competição por cada posição vencedora no vetor e imprime o vencedor
-void torneio::arruma()
-{
-    for (int i = inicioDados - 1; i >= 0; i--)
-    {
-        compete(i);
-    }
-}
-
-// Faz a competição entre os elementos
-void torneio::compete(int i)
-{
-    int esq = esquerda(i);
-    int dir = direita(i);
-    int maior = -1;
-
-    if (esq < capacidade)
-    {
-        if ((dir < capacidade) && (heap[dir] > heap[esq]))
-        {
-            maior = dir;
+    void arruma() {
+        for (int i = heap.size() / 2 - 1; i >= 0; i--) {
+            ajusta(i);
         }
-        else
-        {
-            maior = esq;
+    }
+
+    void ajusta(int i) {
+        int maior = i;
+        int esquerda = 2 * i + 1;
+        int direita = 2 * i + 2;
+
+        if (esquerda < heap.size() && compara(heap[esquerda], heap[maior])) {
+            maior = esquerda;
         }
-        heap[i] = heap[maior];
-    }
-    else
-    {
-        heap[i] = -1;
-    }
-}
 
-void torneio::verBaseMaior()
-{
-    cout << heap[0];
-}
+        if (direita < heap.size() && compara(heap[direita], heap[maior])) {
+            maior = direita;
+        }
 
-int main()
-{
-    int tam;
-    cin >> tam;
-    
-
-    int vet[tam];
-    for (int i = 0; i < tam; i++)
-    {
-        cin >> vet[i];
+        if (maior != i) {
+            swap(heap[i], heap[maior]);
+            ajusta(maior);
+        }
     }
 
-    torneio participantes(vet, tam);
+    bool compara(Participante a, Participante b) {
+        if (a.valorRelativo != b.valorRelativo) {
+            return a.valorRelativo > b.valorRelativo;
+        } else {
+            return a.valorBase > b.valorBase;
+        }
+    }
 
-    participantes.verBaseMaior();
+public:
+    Torneio(vector<int> valoresBase) {
+        for (int valor : valoresBase) {
+            heap.push_back({valor, valor});
+        }
+        arruma();
+    }
+
+    int vencedor() {
+        return heap[0].valorBase;
+    }
+
+    void rodada() {
+        for (int i = 0; i < heap.size() / 2; i++) {
+            int esquerda = 2 * i + 1;
+            int direita = 2 * i + 2;
+
+            if (compara(heap[esquerda], heap[direita])) {
+                heap[i] = heap[esquerda];
+                heap[i].valorRelativo -= heap[direita].valorRelativo;
+            } else {
+                heap[i] = heap[direita];
+                heap[i].valorRelativo -= heap[esquerda].valorRelativo;
+            }
+        }
+        heap.resize(heap.size() / 2);
+        arruma();
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> participantes(n);
+    for (int i = 0; i < n; i++) {
+        cin >> participantes[i];
+    }
+
+    Torneio torneio(participantes);
+    while (n > 1) {
+        torneio.rodada();
+        n /= 2;
+    }
+
+    cout << torneio.vencedor() << endl;
 
     return 0;
 }
