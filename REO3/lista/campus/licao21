@@ -1,0 +1,26 @@
+1)Considere as seguintes afirmativas:
+I) Variáveis homogêneas podem ser definidas como um conjunto sequencial ordenado de variáveis de um mesmo tipo. 
+II) Um arranjo é um conjunto de espaço de memoria, não necessariamente contíguo, para armazenamento de elementos de um mesmo tipo. Estes elementos podem ser selecionados de acordo com sua posição no arranjo.
+III)  O uso de arranjos tem como principal vantagem o fato de permitir o redimensionamento de forma fácil e prática, possuindo tamanho ilimitado. Como principal desvantagem o acesso rápido a qualquer uma de suas posições.
+É correto afirmar que:
+R)Somente a afirmativa II está correta.
+
+2)Considere as seguintes afirmativas:
+I) Uma lista encadeada (ou linear) é uma estrutura que dado um elemento da mesma podemos identificar seu sucessor e seu predecessor.  É uma estrutura de dados linear e dinâmica onde o primeiro e o último elementos da lista são considerados elementos especiais.
+II) Uma lista encadeada é composta por células que apontam para o próximo elemento da lista. Uma lista encadeada é criada a partir de seu primeiro elemento e seu último elemento aponta para uma célula nula.
+III)  Uma lista obrigatoriamente possui indicadores que apontam para o primeiro e último elementos. 
+IV) Como principal vantagem do uso de listas encontra-se o fato que ele permite acesso ágil aos elementos intermediários, uma vez que, em geral, precisa percorrer os nós, um por um até chegar ao desejado. Como principal desvantagem a possibilidade de redimensionamento, caso haja limite de memória. 
+V) Em geral, listas encadeadas são implementadas por meio de indireção (ponteiros ou similares), apesar de existirem alternativas. Por conta do tamanho dinâmico e do uso de ponteiros (incluindo alocação dinâmica de memória), listas encadeadas também são chamadas de listas dinamicamente encadeadas.
+VI) Uma lista é exatamente a união de uma pilha e fila em uma só estrutura.
+É correto afirmar que:
+R)Somente as afirmativas I, II e V estão corretas.
+
+3)Considere as seguintes afirmativas:
+I) Qualquer tipo de implementação de lista possui ao menos um ponteiro, que aponta para seu primeiro elemento. Boa parte das implementações também possui um ponteiro para seu último elemento, para facilitar o acesso à essa posição (em inserção ou remoção no fim da lista, por exemplo).
+II) Um atributo opcional, bastante utilizado em implementações é o número de apontamentos da lista. Sem esse atributo, para saber o seu tamanho é necessário percorrê-la por completo.
+III)  Sem um ponteiro para o último elemento da lista, inserções no final da lista precisam percorrê-la por inteiro antes de efetuar essa tarefa. Caso essa não seja uma operação comum, pode-se evitar esse atributo e o custo de sua manutenção. A ausência de um atributo para o tamanho torna obrigatório percorrer a lista para descobrir seu tamanho.
+IV) Devido a sua estrutura dinâmica, não é possível desenvolver utilizando técnicas recursivas. A implementação é obrigatoriamente iterativa.
+V) Como nós costumam ser privados, métodos que os utilizam costumam ser auxiliares e privados ou movidos para uma classe que representa os nós da lista. Algumas listas disponibilizam métodos que retornam iteradores, utilizados para acessar elementos específicos da lista a partir de uma dada posição.
+VI) Embora a implementação tradicional de listas seja utilizando indireção, é possível utilizar um arranjo para armazenar os dados de uma lista. Nesse caso, utiliza-se um vetor de nós, em que cada nó armazena, por exemplo, além de seus dados, a posição do nó anterior e do próximo.
+É correto afirmar que:
+R)Somente as afirmativas III,  V e VI estão corretas.
