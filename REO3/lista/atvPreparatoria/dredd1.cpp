@@ -50,14 +50,29 @@ f
 #include <string>
 using namespace std;
 
-struct noh
+class noh
 {
+    friend class lista;
+private:
     string nomeEquipe;
     string lider;
     string linguagem;
     int qtdMembros;
     noh *proximo;
+
+public:
+    noh(string nomeEquipe, string lider, string linguagem, int qtdMembros);
 };
+
+noh::noh(string nomeEquipe, string lider, string linguagem, int qtdMembros)
+{
+    this->nomeEquipe = nomeEquipe;
+    this->lider = lider;
+    this->linguagem = linguagem;
+    this->qtdMembros = qtdMembros;
+    this->proximo = NULL;
+}
+
 
 class lista
 {
@@ -99,11 +114,7 @@ lista::~lista()
 
 void lista::insereInicio(string nomeEquipe, string lider, string linguagem, int qtdMembros)
 {
-    noh *novo = new noh;
-    novo->nomeEquipe = nomeEquipe;
-    novo->lider = lider;
-    novo->linguagem = linguagem;
-    novo->qtdMembros = qtdMembros;
+    noh *novo = new noh(nomeEquipe, lider, linguagem, qtdMembros);
     novo->proximo = primeiro;
     primeiro = novo;
     if (tamanho == 0)
@@ -115,11 +126,7 @@ void lista::insereInicio(string nomeEquipe, string lider, string linguagem, int 
 
 void lista::insereFim(string nomeEquipe, string lider, string linguagem, int qtdMembros)
 {
-    noh *novo = new noh;
-    novo->nomeEquipe = nomeEquipe;
-    novo->lider = lider;
-    novo->linguagem = linguagem;
-    novo->qtdMembros = qtdMembros;
+    noh *novo = new noh(nomeEquipe, lider, linguagem, qtdMembros);
     novo->proximo = NULL;
     if (tamanho == 0)
     {
@@ -151,11 +158,7 @@ void lista::insereNaPosicao(string nomeEquipe, string lider, string linguagem, i
         }
         else
         {
-            noh *novo = new noh;
-            novo->nomeEquipe = nomeEquipe;
-            novo->lider = lider;
-            novo->linguagem = linguagem;
-            novo->qtdMembros = qtdMembros;
+            noh *novo = new noh(nomeEquipe, lider, linguagem, qtdMembros);
             noh *aux = primeiro;
             for (int i = 0; i < posicao - 1; ++i)
             {
@@ -172,7 +175,7 @@ void lista::removeInicio()
 {
     if (tamanho == 0)
     {
-        cout << "Remoção em lista vazia!" << endl;
+        cout << "Remocao em lista vazia!" << endl;
     }
     else
     {
@@ -187,7 +190,7 @@ void lista::removeFim()
 {
     if (tamanho == 0)
     {
-        cout << "Remoção em lista vazia!" << endl;
+        cout << "Remocao em lista vazia!" << endl;
     }
     else
     {
