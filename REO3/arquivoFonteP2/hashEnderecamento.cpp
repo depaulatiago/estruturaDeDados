@@ -121,13 +121,13 @@ void hashEA::inserir(const string& assunto, const string& interessado, const cha
 
 
 void hashEA::redimensiona() {
-    int capAux = capacidade; // Armazena a capacidade atual da tabela
+    unsigned int capAux = capacidade; // Armazena a capacidade atual da tabela
     capacidade *= 1.5; // Aumenta a capacidade da tabela em 50%
     dado* aux = new dado[capacidade]; // Cria um novo vetor de dados com a nova capacidade
-    for (int i = 0; i < capacidade; i++) aux[i] = INVALIDO; // Inicializa o novo vetor com dados inválidos
+    for (unsigned int i = 0; i < capacidade; i++) aux[i] = INVALIDO; // Inicializa o novo vetor com dados inválidos
 
     // Transfere os dados válidos da tabela antiga para a nova
-    for (int i = 0; i < capAux; i++) {
+    for (unsigned int i = 0; i < capAux; i++) {
         if (vetDados[i] != INVALIDO and vetDados[i] != REMOVIDO) {
             unsigned pos = posicao(vetDados[i].nomeInteressado); // Calcula a posição na nova tabela
             while ((aux[pos] != INVALIDO)) pos = (pos + 1) % capacidade; // Trata colisões por sondagem linear
