@@ -106,22 +106,59 @@ public:
     // Insere no início, para não precisar de ponteiro para o fim
     void insere(const string &c, const char &t, const int &v)
     {
+        noh *novo = new noh(c, t, v, primeiro);
+        primeiro = novo;
+        ++numElementos;
     }
     // Remove o noh com dada chave da lista.
     // Se a chave não existe, retorna informação.
     bool remove(const string &c)
     {
+        noh *anterior = NULL;
+        noh *atual = primeiro;
+        while ((atual != NULL) and (atual->chave != c))
+        {
+            anterior = atual;
+            atual = atual->proximo;
+        }
+        if (atual == NULL)
+            return false;
+        if (anterior == NULL)
+            primeiro = atual->proximo;
+        else
+            anterior->proximo = atual->proximo;
+        delete atual;
+        --numElementos;
+        return true;
     }
     // Busca um elemento na lista, retorna falso se não encontrado
     // o valor buscado é retornado por passagem por referência
     // na variável valorBuscado
     bool busca(const string &c, char &tipoBuscado, int &valorBuscado)
     {
+        noh *atual = primeiro;
+        while ((atual != NULL) and (atual->chave != c))
+        {
+            atual = atual->proximo;
+        }
+        if (atual == NULL)
+            return false;
+        tipoBuscado = atual->tipo;
+        valorBuscado = atual->valor;
+        return true;
     }
     // Verifica se já tem algum dado na lista com
     // uma dada chave
     bool verificaOcorrencia(const string &c)
     {
+        noh *atual = primeiro;
+        while ((atual != NULL) and (atual->chave != c))
+        {
+            atual = atual->proximo;
+        }
+        if (atual == NULL)
+            return false;
+        return true;
     }
     // Imprime o conteúdo da lista, para fins de depuração
     void imprime()
@@ -165,13 +202,27 @@ public:
     ~tabelaHash() {}
     // Insere um nó com dada chave e valor.
     bool insere(const string &c, char &t, const int &v) {
-        
+        unsigned posicao = funcaoHash(c);
+        if (tabela[posicao].verificaOcorrencia(c))
+            return false;
+        tabela[posicao].insere(c, t, v);
+        return true;
     }
     // Retorna um valor associado a uma dada chave.
     // Se a chave não existe, retorna "NÃO ENCONTRADO!".
-    bool valor(const string &c, char &tipoBuscado, int &valorRetorno) {}
+    bool valor(const string &c, char &tipoBuscado, int &valorRetorno) {
+        unsigned posicao = funcaoHash(c);
+        if (tabela[posicao].busca(c, tipoBuscado, valorRetorno))
+            return true;
+        return false;
+    }
     // Retira do hash um nó com dada chave.
-    bool remove(const string &c) {}
+    bool remove(const string &c) {
+        unsigned posicao = funcaoHash(c);
+        if (tabela[posicao].remove(c))
+            return true;
+        return false;
+    }
     // Imprime o conteúdo interno do hash (para fins de depuração)
     void imprime()
     {
