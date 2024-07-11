@@ -7,11 +7,13 @@ using namespace std;
 const int UMPRIMO = 7;
 const int MAXOCUPACAO = 70;
 // taxa de redimensionamento da lista
-const int TXREDIM = 1.05f;
+const float TXREDIM = 1.05f;
 
 bool primo(int n)
 {
-    if (n == 1 or n == 2)
+    if (n < 2)
+        return false;
+    if (n == 2)
         return true;
     int divisor = 2;
     while ((divisor <= sqrt(n)) and (n % divisor != 0))
@@ -23,8 +25,12 @@ int obterProximoPrimo(int n)
 {
     bool achouProximo = false;
     int i = n;
-    while (not achouProximo and not primo(i))
+    while (!achouProximo)
+    {
         i++;
+        if (primo(i))
+            achouProximo = true;
+    }
     return i;
 }
 
@@ -120,7 +126,7 @@ public:
         {
             atual = atual->proximo;
         }
-        if (atual = NULL)
+        if (atual == NULL)
         {
             return false;
         }
@@ -148,151 +154,160 @@ public:
             atual = atual->proximo;
         }
     }
+};
 
-    class tabelaHash
+class tabelaHash
+{
+private:
+    lista *tabela;
+    unsigned numPosicoes;
+    unsigned ocupacaoTab = 0;
+    unsigned posicao(const string &s)
     {
-    private:
-        lista *tabela;
-        unsigned numPosicoes;
-        unsigned ocupacaoTab = 0;
-        unsigned posicao(const string &s)
-        {
-            return posicao(s, numPosicoes);
-        }
-        unsigned posicao(const string &s, int cap)
-        {
-            unsigned pos = 0;
-            for (unsigned int i = 0; i < s.size(); ++i)
-                pos = (UMPRIMO * pos + s[i]) % cap;
-            return pos;
-        }
-
-        void redimensiona(int qtdePos)
-        {
-            lista *novaTabela = new lista[qtdePos];
-            for (unsigned i = 0; i < numPosicoes; i++)
-            {
-                noh *atual = tabela[i].primeiro;
-                while (atual != NULL)
-                {
-                    int novaPosicao = posicao(atual->chave, qtdePos);
-                    novaTabela[novaPosicao].insere(atual->chave, atual->tipo, atual->valor);
-                    atual = atual->proximo;
-                }
-            }
-            delete[] tabela;
-            tabela = novaTabela;
-            numPosicoes = qtdePos;
-        }
-
-    public:
-        // construtor padrao
-        tabelaHash(unsigned cap = 100)
-        {
-            tabela = new lista[cap];
-            numPosicoes = cap;
-        }
-        ~tabelaHash()
-        {
-            delete[] tabela;
-        }
-        bool insere(const string &c, const char &t, const int &v)
-        {
-            if (ocupacaoTab >= MAXOCUPACAO)
-            {
-                unsigned pos = posicao(c);
-                if (tabela[pos].verificaOcorrencia(c))
-                    return false;
-                else
-                {
-                    while (ocupacaoTab >= MAXOCUPACAO)
-                    {
-                        unsigned novoNumListas = obterProximoPrimo(numPosicoes + 1);
-                        cout << endl
-                             << "Eh necessario redimensionar a tabela de: " << numPosicoes << " para " << novoNumListas << endl
-                             << endl;
-                        redimensiona(novoNumListas);
-                        pos = posicao(c);
-                    }
-                }
-            }
-        }
-        bool valor(const string &c, char &tipoBuscado, int &valorRetorno)
-        {
-            unsigned pos = posicao(c);
-            return tabela[pos].busca(c, tipoBuscado, valorRetorno);
-        }
-        bool altera(const string &c, const int &v)
-        {
-            unsigned pos = posicao(c);
-            return tabela[pos].remove(c);
-        }
-        void imprime()
-        {
-            for (unsigned i = 0; i < numPosicoes; i++)
-            {
-                cout << i << ": ";
-                tabela[i].imprime();
-                cout << endl;
-            }
-        }
-
-        void remove(){
-            
-        }
-    };
-
-    int main()
+        return posicao(s, numPosicoes);
+    }
+    unsigned posicao(const string &s, int cap)
     {
-        int tamanhoTH;
-        cin >> tamanhoTH;
-        tabelaHash tabela(tamanhoTH);
-        char comando;
-        string chave;
-        char tipo = 'a';
-        int valor = -1;
+        unsigned pos = 0;
+        for (unsigned int i = 0; i < s.size(); ++i)
+            pos = (UMPRIMO * pos + s[i]) % cap;
+        return pos;
+    }
 
-        do
+    void redimensiona(int qtdePos)
+    {
+        lista *novaTabela = new lista[qtdePos];
+        for (unsigned i = 0; i < numPosicoes; i++)
         {
-            try
+            noh *atual = tabela[i].primeiro;
+            while (atual != NULL)
             {
-                cin >> comando;
-                switch (comando)
-                {
-                case 'i':
-                    cin >> chave >> tipo >> valor;
-                    if (not tabela.insere(chave, tipo, valor))
-                        cout << "chave ja existente: " << chave << endl;
-                    break;
-                case 'r':
-                    cin >> chave;
-                    if (not tabela.remove(chave))
-                        cout << "chave nao encontrada: " << chave << endl;
-                    break;
-                case 'l':
-                    cin >> chave;
-                    if (not tabela.valor(chave, tipo, valor))
-                        cout << "chave nao encontrada: " << chave << endl;
-                    else
-                        cout << chave << " " << tipo << " " << valor << endl;
-                    break;
-                case 'p':
-                    tabela.imprime();
-                    break;
-                case 'f':
-                    // finaliza o programa
-                    break;
-                default:
-                    cerr << "comando invalido\n";
-                }
-                catch (runtime_error &e)
-                {
-                    cerr << e.what() << endl;
-                }
+                int novaPosicao = posicao(atual->chave, qtdePos);
+                novaTabela[novaPosicao].insere(atual->chave, atual->tipo, atual->valor);
+                atual = atual->proximo;
             }
-            while (comando != 'f');
-            tabela.imprime();
-            cout << endl;
-            return 0;
+        }
+        delete[] tabela;
+        tabela = novaTabela;
+        numPosicoes = qtdePos;
+    }
+
+public:
+    // construtor padrao
+    tabelaHash(unsigned cap = 100)
+    {
+        tabela = new lista[cap];
+        numPosicoes = cap;
+    }
+    ~tabelaHash()
+    {
+        delete[] tabela;
+    }
+    bool insere(const string &c, const char &t, const int &v)
+    {
+        if (100 * ocupacaoTab / numPosicoes >= MAXOCUPACAO)
+        {
+            while (100 * ocupacaoTab / numPosicoes >= MAXOCUPACAO)
+            {
+                unsigned novoNumListas = obterProximoPrimo(numPosicoes + 1);
+                cout << endl
+                     << "Eh necessario redimensionar a tabela de: " << numPosicoes << " para " << novoNumListas << endl
+                     << endl;
+                redimensiona(novoNumListas);
+            }
+        }
+
+        unsigned pos = posicao(c);
+        if (tabela[pos].verificaOcorrencia(c))
+            return false;
+        else
+        {
+            tabela[pos].insere(c, t, v);
+            ocupacaoTab++;
+            return true;
         }
     }
+    bool valor(const string &c, char &tipoBuscado, int &valorRetorno)
+    {
+        unsigned pos = posicao(c);
+        return tabela[pos].busca(c, tipoBuscado, valorRetorno);
+    }
+    bool altera(const string &c, const int &v)
+    {
+        unsigned pos = posicao(c);
+        return tabela[pos].alteraValor(c, v);
+    }
+    void imprime()
+    {
+        for (unsigned i = 0; i < numPosicoes; i++)
+        {
+            cout << i << ": ";
+            tabela[i].imprime();
+            cout << endl;
+        }
+    }
+
+    bool remove(const string &c)
+    {
+        unsigned pos = posicao(c);
+        if (tabela[pos].remove(c))
+        {
+            ocupacaoTab--;
+            return true;
+        }
+        return false;
+    }
+};
+
+int main()
+{
+    int tamanhoTH;
+    cin >> tamanhoTH;
+    tabelaHash tabela(tamanhoTH);
+    char comando;
+    string chave;
+    char tipo = 'a';
+    int valor = -1;
+
+    do
+    {
+        try
+        {
+            cin >> comando;
+            switch (comando)
+            {
+            case 'i':
+                cin >> chave >> tipo >> valor;
+                if (not tabela.insere(chave, tipo, valor))
+                    cout << "chave ja existente: " << chave << endl;
+                break;
+            case 'r':
+                cin >> chave;
+                if (not tabela.remove(chave))
+                    cout << "chave nao encontrada: " << chave << endl;
+                break;
+            case 'l':
+                cin >> chave;
+                if (not tabela.valor(chave, tipo, valor))
+                    cout << "chave nao encontrada: " << chave << endl;
+                else
+                    cout << chave << " " << tipo << " " << valor << endl;
+                break;
+            case 'p':
+                tabela.imprime();
+                break;
+            case 'f':
+                break;
+            default:
+                cerr << "comando invalido/n";
+            }
+        }
+        catch (runtime_error &e)
+        {
+            cout << e.what() << endl;
+        }
+    } while (comando != 'f');
+    tabela.imprime();
+    cout << endl;
+    return 0;
+}

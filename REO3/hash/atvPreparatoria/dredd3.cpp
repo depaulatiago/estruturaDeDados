@@ -164,7 +164,9 @@ public:
     tabelaHash(unsigned cap = 100) {}
     ~tabelaHash() {}
     // Insere um nó com dada chave e valor.
-    bool insere(const string &c, char &t, const int &v) {}
+    bool insere(const string &c, char &t, const int &v) {
+        
+    }
     // Retorna um valor associado a uma dada chave.
     // Se a chave não existe, retorna "NÃO ENCONTRADO!".
     bool valor(const string &c, char &tipoBuscado, int &valorRetorno) {}
