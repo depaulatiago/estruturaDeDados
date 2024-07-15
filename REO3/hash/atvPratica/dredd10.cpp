@@ -1,43 +1,39 @@
+/*
+Utilizando como base o código que você desenvolveu na atividade "Hash com encadeamento - Inventário de itens de jogo", faça as alterações necessárias para que a tabela hash seja redimensionada em 3 posições caso a taxa de ocupação seja igual ou maior que 70%
+
+*/
 #include <iostream>
 #include <string>
 #include <cmath>
 
 using namespace std;
 
-const int UMPRIMO = 7; // Constante para a função de hash
+const int UMPRIMO = 7;
 
-// Classe que representa um nó na lista encadeada
 class noh
 {
-    friend class lista;      // A classe 'lista' pode acessar membros privados de 'noh'
-    friend class tabelaHash; // A classe 'tabelaHash' pode acessar membros privados de 'noh'
+    friend class lista;
+    friend class tabelaHash;
 
 private:
-    string chave; // Chave do nó
-    char tipo;    // Tipo do elemento
-    int valor;    // Valor do elemento
-    noh *proximo; // Ponteiro para o próximo nó na lista encadeada
-    // Construtor da classe 'noh'
+    string chave;
+    char tipo;
+    int valor;
+    noh *proximo;
     noh(const string &c = "", const char &t = 'a', const int &v = 0, noh *prox = NULL) : chave(c), tipo(t), valor(v), proximo(prox) {}
 };
 
-// Classe que representa uma lista encadeada de nós
 class lista
 {
-    friend class tabelaHash; // A classe 'tabelaHash' pode acessar membros privados de 'lista'
+    friend class tabelaHash;
 
 private:
-    noh *primeiro;               // Ponteiro para o primeiro nó da lista
-    unsigned short numElementos; // Quantidade de nós na lista
+    noh *primeiro;               // primeiro nó da lista
+    unsigned short numElementos; // quantidade de valores na lista
 public:
-    // Construtor
-    lista() : primeiro(NULL), numElementos(0) {}
-    // Destrutor
-    ~lista() {}
-    // Consulta o tamanho da lista
-    unsigned short tamanho() { return numElementos; }
-
-    // Adiciona um novo nó (chave, tipo, valor) no início da lista
+    lista() : primeiro(NULL), numElementos(0) {}      // Construtor
+    ~lista() {}                                       // Destrutor
+    unsigned short tamanho() { return numElementos; } // Consulta do Tamanho
     void insere(const string &c, const char &t, const int &v)
     {
         noh *novo = new noh(c, t, v, primeiro);
@@ -45,7 +41,6 @@ public:
         ++numElementos;
     }
 
-    // Remove o nó com uma determinada chave da lista
     bool remove(const string &c)
     {
         noh *anterior = NULL;
@@ -56,7 +51,7 @@ public:
             atual = atual->proximo;
         }
         if (atual == NULL)
-            return false; // Chave não encontrada
+            return false;
         if (anterior == NULL)
             primeiro = atual->proximo;
         else
@@ -66,56 +61,50 @@ public:
         return true;
     }
 
-    // Busca um nó na lista por sua chave, retornando seu tipo e valor por referência
     bool busca(const string &c, char &tipoBuscado, int &valorBuscado)
     {
         noh *atual = primeiro;
         while ((atual != NULL) and (atual->chave != c))
             atual = atual->proximo;
         if (atual == NULL)
-            return false; // Chave não encontrada
+            return false;
         tipoBuscado = atual->tipo;
         valorBuscado = atual->valor;
         return true;
     }
 
-    // Verifica se já existe um nó na lista com uma determinada chave
     bool verificaOcorrencia(const string &c)
     {
         noh *atual = primeiro;
         while ((atual != NULL) and (atual->chave != c))
             atual = atual->proximo;
         if (atual == NULL)
-            return false; // Chave não encontrada
+            return false;
         return true;
     }
 
-    // Imprime o conteúdo da lista
     void imprime()
     {
         noh *atual = primeiro;
         while (atual != NULL)
         {
-            cout << "[" << atual->chave << "/" << atual->valor << "]";
+            cout << "[" << atual->chave << "/"
+                 << atual->valor << "]";
             atual = atual->proximo;
         }
     }
 };
 
-// Classe que representa a tabela hash com encadeamento
 class tabelaHash
 {
 private:
-    lista *tabela;        // Vetor de ponteiros para lista
-    unsigned numPosicoes; // Quantidade de posições na tabela hash
-
-    // Função de hash para converter uma chave em um endereço na tabela
+    lista *tabela;
+    unsigned numPosicoes;
+    unsigned numElementos; // quantidade de elementos inseridos
     unsigned funcaoHash(const string &s)
     {
         return funcaoHash(s, numPosicoes);
     }
-
-    // Função de hash (versão para redimensionamento)
     unsigned funcaoHash(const string &s, int cap)
     {
         unsigned pos = 0;
@@ -123,16 +112,33 @@ private:
             pos = (UMPRIMO * pos + s[i]) % cap;
         return pos;
     }
-
-public:
-    // Construtor padrão
-    tabelaHash(unsigned cap = 100)
+    void redimensiona()
     {
-        numPosicoes = cap;
-        tabela = new lista[numPosicoes];
+        unsigned novaCapacidade = numPosicoes + 3;
+        lista *novaTabela = new lista[novaCapacidade];
+
+        for (unsigned i = 0; i < numPosicoes; i++)
+        {
+            noh *atual = tabela[i].primeiro;
+            while (atual != NULL)
+            {
+                unsigned novaPosicao = funcaoHash(atual->chave, novaCapacidade);
+                noh *novoNoh = new noh(atual->chave, atual->tipo, atual->valor, novaTabela[novaPosicao].primeiro);
+                novaTabela[novaPosicao].primeiro = novoNoh;
+                atual = atual->proximo;
+            }
+        }
+
+        delete[] tabela;
+        tabela = novaTabela;
+        numPosicoes = novaCapacidade;
     }
 
-    // Destrutor
+public:
+    tabelaHash(unsigned cap = 100) : numPosicoes(cap), numElementos(0)
+    {
+        tabela = new lista[numPosicoes];
+    }
     ~tabelaHash()
     {
         for (unsigned i = 0; i < numPosicoes; i++)
@@ -147,19 +153,22 @@ public:
         }
         delete[] tabela;
     }
-
-    // Insere um nó com uma determinada chave e valor na tabela hash
     bool insere(const string &c, char &t, const int &v)
     {
         unsigned posicao = funcaoHash(c);
         if (tabela[posicao].verificaOcorrencia(c))
-            return false; // Chave já existente
+            return false;
         tabela[posicao].insere(c, t, v);
+        ++numElementos;
         cout << "chave '" << c << "' inserida na posicao " << posicao << endl;
+        if ((float(numElementos) / numPosicoes) >= 0.7)
+        {
+            cout << "É necessario redimensionar de " << numPosicoes << " para " << (numPosicoes + 3) << endl;
+            redimensiona();
+        }
         return true;
     }
 
-    // Insere um nó de forma ordenada na tabela hash
     bool insereOrdenado(const string &c, char &t, const int &v)
     {
         unsigned posicao = funcaoHash(c);
@@ -170,16 +179,21 @@ public:
         }
         if (*ptr != NULL && (*ptr)->chave == c)
         {
-            return false; // Chave já existe, não insere.
+            return false;
         }
         noh *novo = new noh(c, t, v);
-        novo->proximo = *ptr; // O próximo do novo é o atual *ptr.
-        *ptr = novo;          // Atualiza o ponteiro anterior (ou primeiro) para apontar para o novo.
+        novo->proximo = *ptr;
+        *ptr = novo;
+        ++numElementos;
         cout << "chave '" << c << "' inserida na posicao " << posicao << endl;
+        if ((float(numElementos) / numPosicoes) >= 0.7)
+        {
+            cout << "É necessario redimensionar de " << numPosicoes << " para " << (numPosicoes + 3) << endl;
+            redimensiona();
+        }
         return true;
     }
 
-    // Retorna um valor associado a uma dada chave
     bool valor(const string &c, char &tipoBuscado, int &valorRetorno)
     {
         unsigned posicao = funcaoHash(c);
@@ -188,16 +202,17 @@ public:
         return false;
     }
 
-    // Remove um nó com uma determinada chave da tabela hash
-    noh *remove(const string &c)
+    bool remove(const string &c)
     {
         unsigned posicao = funcaoHash(c);
         if (tabela[posicao].remove(c))
-            return tabela[posicao].primeiro;
-        return nullptr;
+        {
+            --numElementos;
+            return true;
+        }
+        return false;
     }
 
-    // Imprime o conteúdo interno da tabela hash
     void imprime()
     {
         for (unsigned i = 0; i < numPosicoes; i++)
@@ -207,91 +222,57 @@ public:
             cout << endl;
         }
     }
-
-    // Função para modificar um elemento
-    void modificar(const string &chave, const string &novaChave, char novoTipo, int novoValor)
-    {
-        // Passo 1 & 2: Remover o elemento com a chave original
-        noh *elementoModificado = remove(chave);
-
-        if (elementoModificado != nullptr)
-        {
-            // Passo 3: Modificar os dados do elemento
-            elementoModificado->chave = novaChave;
-            elementoModificado->tipo = novoTipo;
-            elementoModificado->valor = novoValor;
-
-            // Passo 4 & 5: Inserir o elemento modificado na nova posição
-            insere(novaChave, novoTipo, novoValor);
-
-            // Libera o nó removido
-            delete elementoModificado;
-        }
-        else
-        {
-            cout << "Elemento com a chave " << chave << " não encontrado." << endl;
-        }
-    }
 };
 
 int main()
 {
     int tamanhoTH;
-    cin >> tamanhoTH;             // Lê o tamanho da tabela hash
-    tabelaHash tabela(tamanhoTH); // Cria uma tabela hash com o tamanho lido
+    cin >> tamanhoTH;
+    tabelaHash tabela(tamanhoTH);
     char comando;
     string chave;
-    string novaChave;
     char tipo = 'a';
     int valor = -1;
-
-    // Loop para processar os comandos
     do
     {
         try
         {
-            cin >> comando; // Lê o comando
+            cin >> comando;
             switch (comando)
             {
-            case 'i': // Inserir
+            case 'i': // inserir
                 cin >> chave >> tipo >> valor;
                 if (not tabela.insereOrdenado(chave, tipo, valor))
                     cout << "Erro na inserção: chave já existente!" << endl;
                 break;
-            case 'r': // Remover
+            case 'r': // remover
                 cin >> chave;
                 if (not tabela.remove(chave))
                     cout << "Erro na remoção: chave não encontrada!" << endl;
                 break;
-            case 'l': // Buscar
+            case 'l': // buscar
                 cin >> chave;
                 if (not tabela.valor(chave, tipo, valor))
                     cout << "Erro na busca: chave não encontrada!" << endl;
                 else
                     cout << "Tipo: " << tipo << " Valor: " << valor << endl;
                 break;
-
-            case 'p': // Imprimir estrutura da tabela hash
+            case 'p': // mostrar estrutura
                 tabela.imprime();
                 break;
-            case 'm': // Modificar elemento
-                cin >> chave >> novaChave >> tipo >> valor;
-                tabela.modificar(chave, novaChave, tipo, valor);
-                break;
-            case 'f': // Finalizar execução
-                // Verificado no do-while
+            case 'f': // finalizar
+                // checado no do-while
                 break;
             default:
-                cerr << "Comando inválido\n";
+                cerr << "comando inválido\n";
             }
         }
         catch (runtime_error &e)
         {
             cout << e.what() << endl;
         }
-    } while (comando != 'f'); // Loop continua até o comando 'f'
-
-    tabela.imprime(); // Imprime a tabela hash final
+    } while (comando != 'f'); // finalizar execução
+    tabela.imprime();
     cout << endl;
     return 0;
 }

@@ -1,4 +1,5 @@
 /*
+Questão 4: Lista Simplesmente Encadeada - Equipes de Maratona - Remover no fim da lista
 Implemente uma função que realize a remoção de um elemento no fim da lista. Para esta atividade você não poderá utilizar um ponteiro para o último elemento. Caso a lista não possua elementos imprima Lista vazia!.
 
 Você pode (e deve!) utilizar o código que você desenvolveu na atividade "Lista Simplesmente Encadeada - Equipes de Maratona" como base.
@@ -31,304 +32,420 @@ p
 (MuppetBabies, Kermit, Phyton, 9)
 f
 */
+
 #include <iostream>
-#include <string>
+#include <cstdlib>
+
 using namespace std;
 
+// Estrutura para armazenar informações da equipe
+struct equipe
+{
+    string nomeEquipe;
+    string lider;
+    string linguagem;
+    int qtdMembros;
+};
+
+// Classe para representar um nó da lista encadeada
 class noh
 {
     friend class lista;
 
 private:
-    string nomeEquipe;
-    string lider;
-    string linguagem;
-    int qtdMembros;
-    noh *proximo;
+    equipe elenco; // Dados da equipe
+    noh *proximo;  // Ponteiro para o próximo nó na lista
 
 public:
-    noh(string nomeEquipe, string lider, string linguagem, int qtdMembros);
+    noh(equipe d); // Construtor
 };
 
-noh::noh(string nomeEquipe, string lider, string linguagem, int qtdMembros)
+// Construtor do nó
+noh::noh(equipe d)
 {
-    this->nomeEquipe = nomeEquipe;
-    this->lider = lider;
-    this->linguagem = linguagem;
-    this->qtdMembros = qtdMembros;
-    this->proximo = NULL;
+    elenco = d;
+    proximo = nullptr;
 }
 
+// Classe para representar a lista encadeada
 class lista
 {
 private:
-    noh *primeiro;
-    noh *ultimo;
-    int tamanho;
+    noh *primeiro; // Ponteiro para o primeiro nó da lista
+    noh *ultimo;   // Ponteiro para o último nó da lista
+    int tamanho;   // Tamanho da lista
+
+    // Função privada para remover todos os nós da lista
+    void removeTodos();
 
 public:
-    lista();
-    ~lista();
-    void insereInicio(string nomeEquipe, string lider, string linguagem, int qtdMembros);
-    void insereFim(string nomeEquipe, string lider, string linguagem, int qtdMembros);
-    void insereNaPosicao(string nomeEquipe, string lider, string linguagem, int qtdMembros, int posicao);
-    void removeInicio();
-    void removeFim();
+    // Construtores e destrutor
+    lista();                      // Construtor padrão
+    lista(const lista &umaLista); // Construtor de cópia
+    ~lista();                     // Destrutor
+
+    // Sobrecarga do operador de atribuição
+    lista &operator=(const lista &umaLista);
+
+    // Métodos de inserção
+    void insereNoFim(equipe elenco);
+    void insereNoInicio(equipe elenco);
+    void insereNaPosicao(int posicao, equipe elenco);
+
+    // Método de busca
+    int procura(string valor);
+
+    // Métodos de impressão
     void imprime();
-    void busca(string nomeEquipe);
-    int getTamanho();
-    void removeTime(string nomeEquipe);
+    void imprimeReverso(); // Método não implementado na classe atual
+
+    // Métodos de remoção
+    void removeNoFim();
+    void removeNoInicio();
+
+    // Outros métodos
+    bool vazia();
+    int Tamanho();
 };
 
+// Método para retornar o tamanho da lista
+int lista::Tamanho()
+{
+    if (vazia())
+        return 0;
+
+    noh *aux = primeiro;
+    int tam = 0;
+
+    while (aux != nullptr)
+    {
+        aux = aux->proximo;
+        tam++;
+    }
+    return tam;
+}
+
+// Construtor padrão da lista
 lista::lista()
 {
-    primeiro = NULL;
-    ultimo = NULL;
     tamanho = 0;
+    primeiro = nullptr;
+    ultimo = nullptr;
 }
 
+// Construtor de cópia da lista
+lista::lista(const lista &umaLista)
+{
+    tamanho = 0;
+    primeiro = nullptr;
+    ultimo = nullptr;
+
+    noh *aux = umaLista.primeiro;
+
+    // Copia os elementos da lista umaLista para a nova lista
+    while (aux != nullptr)
+    {
+        insereNoFim(aux->elenco);
+        aux = aux->proximo;
+    }
+}
+
+// Destrutor da lista (chama função privada para remover todos os nós)
 lista::~lista()
 {
-    noh *iter = primeiro;
-    noh *proximo = NULL;
-    while (iter != NULL)
-    {
-        proximo = iter->proximo;
-        delete iter;
-        iter = proximo;
-    }
+    removeTodos();
 }
 
-void lista::insereInicio(string nomeEquipe, string lider, string linguagem, int qtdMembros)
+// Função privada para remover todos os nós da lista
+void lista::removeTodos()
 {
-    noh *novo = new noh(nomeEquipe, lider, linguagem, qtdMembros);
-    novo->proximo = primeiro;
-    primeiro = novo;
-    if (tamanho == 0)
+    noh *aux = primeiro;
+    noh *temp;
+
+    // Percorre a lista removendo cada nó
+    while (aux != nullptr)
     {
-        ultimo = novo;
+        temp = aux;
+        aux = aux->proximo;
+        delete temp;
     }
-    ++tamanho;
+
+    tamanho = 0;
+    primeiro = nullptr;
+    ultimo = nullptr;
 }
 
-void lista::insereFim(string nomeEquipe, string lider, string linguagem, int qtdMembros)
+// Sobrecarga do operador de atribuição
+lista &lista::operator=(const lista &umaLista)
 {
-    noh *novo = new noh(nomeEquipe, lider, linguagem, qtdMembros);
-    novo->proximo = NULL;
-    if (tamanho == 0)
+    // Limpa a lista atual
+    removeTodos();
+
+    // Copia os elementos da lista umaLista para a lista atual
+    noh *aux = umaLista.primeiro;
+
+    while (aux != nullptr)
+    {
+        insereNoFim(aux->elenco);
+        aux = aux->proximo;
+    }
+
+    return *this;
+}
+
+// Método para inserir no final da lista
+void lista::insereNoFim(equipe elenco)
+{
+    noh *novo = new noh(elenco);
+
+    // Se a lista está vazia, o novo nó é o primeiro e o último
+    if (vazia())
     {
         primeiro = novo;
+        ultimo = novo;
     }
     else
     {
+        // Insere o novo nó no final da lista
         ultimo->proximo = novo;
+        ultimo = novo;
     }
-    ultimo = novo;
-    ++tamanho;
+
+    tamanho++;
 }
 
-void lista::insereNaPosicao(string nomeEquipe, string lider, string linguagem, int qtdMembros, int posicao)
+// Método para inserir no início da lista
+void lista::insereNoInicio(equipe elenco)
 {
-    if (posicao < 0 or posicao > tamanho)
+    noh *novo = new noh(elenco);
+
+    // Se a lista está vazia, o novo nó é o primeiro e o último
+    if (vazia())
+    {
+        primeiro = novo;
+        ultimo = novo;
+    }
+    else
+    {
+        // Insere o novo nó no início da lista
+        novo->proximo = primeiro;
+        primeiro = novo;
+    }
+
+    tamanho++;
+}
+
+// Método para inserir em uma posição específica da lista
+void lista::insereNaPosicao(int posicao, equipe elenco)
+{
+    noh *novo = new noh(elenco);
+
+    // Verifica se a posição é válida
+    if ((posicao <= tamanho) && (posicao >= 0))
+    {
+        // Se a lista está vazia, insere o novo nó como primeiro e último
+        if (vazia())
+        {
+            primeiro = novo;
+            ultimo = novo;
+        }
+        else if (posicao == 0) // Insere no início da lista
+        {
+            insereNoInicio(elenco);
+        }
+        else if (posicao == tamanho) // Insere no fim da lista
+        {
+            insereNoFim(elenco);
+        }
+        else
+        {
+            // Insere na posição desejada
+            noh *aux = primeiro;
+            int posAux = 0;
+
+            while (posAux < (posicao - 1))
+            {
+                aux = aux->proximo;
+                posAux++;
+            }
+
+            novo->proximo = aux->proximo;
+            aux->proximo = novo;
+        }
+
+        tamanho++;
+    }
+    else
     {
         cout << "Posição Inexistente!" << endl;
     }
-    else
-    {
-        if (posicao == 0)
-        {
-            insereInicio(nomeEquipe, lider, linguagem, qtdMembros);
-        }
-        else if (posicao == tamanho)
-        {
-            insereFim(nomeEquipe, lider, linguagem, qtdMembros);
-        }
-        else
-        {
-            noh *novo = new noh(nomeEquipe, lider, linguagem, qtdMembros);
-            noh *aux = primeiro;
-            for (int i = 0; i < posicao - 1; ++i)
-            {
-                aux = aux->proximo;
-            }
-            novo->proximo = aux->proximo;
-            aux->proximo = novo;
-            ++tamanho;
-        }
-    }
 }
 
-void lista::removeInicio()
+// Método para procurar a posição de um elemento na lista
+int lista::procura(string valor)
 {
-    if (tamanho == 0)
+    if (vazia())
     {
-        cout << "Remocao em lista vazia!" << endl;
+        throw runtime_error("Lista vazia!");
     }
-    else
+
+    noh *aux = primeiro;
+    int posAux = 0;
+
+    // Percorre a lista procurando pelo valor
+    while ((aux != nullptr) && (aux->elenco.nomeEquipe != valor))
     {
-        noh *removido = primeiro;
-        primeiro = primeiro->proximo;
-        delete removido;
-        --tamanho;
+        posAux++;
+        aux = aux->proximo;
     }
+
+    // Retorna a posição do elemento, ou -1 se não encontrado
+    if (aux == nullptr)
+    {
+        posAux = -1;
+    }
+
+    return posAux;
 }
 
-void lista::removeFim()
-{
-    if (tamanho == 0)
-    {
-        cout << "Remocao em lista vazia!" << endl;
-    }
-    else
-    {
-        if (tamanho == 1)
-        {
-            delete primeiro;
-            primeiro = NULL;
-            ultimo = NULL;
-        }
-        else
-        {
-            noh *iter = primeiro;
-            while (iter->proximo != ultimo)
-            {
-                iter = iter->proximo;
-            }
-            delete ultimo;
-            ultimo = iter;
-            ultimo->proximo = NULL;
-        }
-        --tamanho;
-    }
-}
-
+// Método para imprimir todos os elementos da lista
 void lista::imprime()
 {
+    if (vazia())
+    {
+        throw runtime_error("Lista vazia!");
+    }
+
+    noh *aux = primeiro;
+
+    // Percorre a lista imprimindo os elementos
+    while (aux != nullptr)
+    {
+        cout << "(" << aux->elenco.nomeEquipe << ", " << aux->elenco.lider << ", "
+             << aux->elenco.linguagem << ", " << aux->elenco.qtdMembros << ")" << endl;
+        aux = aux->proximo;
+    }
+}
+
+// Método para verificar se a lista está vazia
+bool lista::vazia()
+{
+    return (tamanho == 0);
+}
+
+// Método para remover o último elemento da lista
+void lista::removeNoFim()
+{
+    if (vazia())
+    {
+        throw runtime_error("Remoção em lista vazia!");
+    }
+
+    noh *aux = primeiro;
+    noh *anterior = nullptr;
+
+    // Percorre a lista até o último nó
+    while (aux->proximo != nullptr)
+    {
+        anterior = aux;
+        aux = aux->proximo;
+    }
+
+    // Remove o último nó
+    delete ultimo;
+    anterior->proximo = nullptr;
+    ultimo = anterior;
+
+    tamanho--;
+
+    // Caso a lista fique vazia, atualiza o primeiro
     if (tamanho == 0)
     {
-        cout << "Lista vazia!" << endl;
-    }
-    else
-    {
-        noh *iter = primeiro;
-        while (iter != NULL)
-        {
-            cout << "(" << iter->nomeEquipe << ", " << iter->lider << ", " << iter->linguagem << ", " << iter->qtdMembros << ")" << endl;
-            iter = iter->proximo;
-        }
+        primeiro = nullptr;
     }
 }
 
-void lista::busca(string nomeEquipe)
+// Método para remover o primeiro elemento da lista
+void lista::removeNoInicio()
 {
-    noh *iter = primeiro;
-    while (iter != NULL)
+    if (vazia())
     {
-        if (iter->nomeEquipe == nomeEquipe)
-        {
-            cout << "(" << iter->nomeEquipe << ", " << iter->lider << ", " << iter->linguagem << ", " << iter->qtdMembros << ")" << endl;
-            return;
-        }
-        iter = iter->proximo;
+        throw runtime_error("Remoção em lista vazia!");
     }
-    cout << "Nao encontrado" << endl;
-}
 
-int lista::getTamanho()
-{
-    int cont = 0;
-    noh *iter = primeiro;
-    while (iter != NULL)
-    {
-        cont++;
-        iter = iter->proximo;
-    }
-    return cont;
-}
+    noh *aux = primeiro;
+    primeiro = primeiro->proximo;
+    delete aux;
 
-void lista::removeTime(string nomeEquipe)
-{
-    if (tamanho == 0)
+    tamanho--;
+
+    // Caso a lista fique vazia, atualiza o último
+    if (vazia())
     {
-        cout << "Lista vazia!" << endl;
-    }
-    else
-    {
-        noh *iter = primeiro;
-        noh *anterior = NULL;
-        while (iter != NULL)
-        {
-            if (iter->nomeEquipe == nomeEquipe)
-            {
-                if (iter == primeiro)
-                {
-                    removeInicio();
-                    return;
-                }
-                else if (iter == ultimo)
-                {
-                    removeFim();
-                    return;
-                }
-                else
-                {
-                    anterior->proximo = iter->proximo;
-                    delete iter;
-                    --tamanho;
-                    return;
-                }
-            }
-            anterior = iter;
-            iter = iter->proximo;
-        }
-        cout << "Nao encontrado" << endl;
+        ultimo = nullptr;
     }
 }
 
+// Função principal (main) para interagir com a lista
 int main()
 {
-    lista maratona;
+    lista minhaLista;
+    equipe info;
     char comando;
-    string nomeEquipe, lider, linguagem;
-    int qtdMembros, posicao;
-    string buscaEquipe;
+    int posicao;
+    string nomeEquipe;
 
-    while (cin >> comando && comando != 'f')
+    do
     {
-        switch (comando)
+        try
         {
-        case 'i':
-            cin >> nomeEquipe >> lider >> linguagem >> qtdMembros;
-            maratona.insereInicio(nomeEquipe, lider, linguagem, qtdMembros);
-            break;
-        case 'h':
-            cin >> nomeEquipe >> lider >> linguagem >> qtdMembros;
-            maratona.insereFim(nomeEquipe, lider, linguagem, qtdMembros);
-            break;
-        case 'm':
-            cin >> posicao >> nomeEquipe >> lider >> linguagem >> qtdMembros;
-            maratona.insereNaPosicao(nomeEquipe, lider, linguagem, qtdMembros, posicao);
-            break;
-        case 'r':
-            maratona.removeInicio();
-            break;
-        case 'a':
-            maratona.removeFim();
-            break;
-        case 'p':
-            maratona.imprime();
-            break;
-        case 's':
-            cin >> nomeEquipe;
-            maratona.busca(nomeEquipe);
-            break;
-        case 't':
-            cout << maratona.getTamanho() << endl;
-            break;
-        case 'x':
-            cin >> nomeEquipe;
-            maratona.removeTime(nomeEquipe);
+            cin >> comando; // Lê o comando
+
+            switch (comando)
+            {
+            case 'i': // Inserir no início
+                cin >> info.nomeEquipe >> info.lider >> info.linguagem >> info.qtdMembros;
+                minhaLista.insereNoInicio(info);
+                break;
+            case 'h': // Inserir no fim
+                cin >> info.nomeEquipe >> info.lider >> info.linguagem >> info.qtdMembros;
+                minhaLista.insereNoFim(info);
+                break;
+            case 'm': // Inserir na posição
+                cin >> posicao >> info.nomeEquipe >> info.lider >> info.linguagem >> info.qtdMembros;
+                minhaLista.insereNaPosicao(posicao, info);
+                break;
+            case 's': // Procurar posição pelo nome da equipe
+                cin >> nomeEquipe;
+                if (minhaLista.procura(nomeEquipe) != -1)
+                    cout << minhaLista.procura(nomeEquipe) << endl;
+                else
+                    cout << "Nao encontrado" << endl;
+                break;
+            case 'r': // Remover do início
+                minhaLista.removeNoInicio();
+                break;
+            case 'a': // Remover do fim
+                minhaLista.removeNoFim();
+                break;
+            case 'p': // Imprimir lista
+                minhaLista.imprime();
+                break;
+            case 't': // Imprimir tamanho da lista
+                cout << minhaLista.Tamanho() << endl;
+                break;
+            case 'f': // Finalizar
+                // Sai do laço
+                break;
+            default:
+                cerr << "Comando inválido\n";
+            }
         }
-    }
+        catch (runtime_error &e)
+        {
+            cout << e.what() << endl;
+        }
+    } while (comando != 'f'); // Repete até receber o comando 'f'
+
     return 0;
 }

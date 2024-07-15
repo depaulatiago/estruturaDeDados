@@ -1,25 +1,26 @@
 /*
-Implemente uma tabela hash, utilizando tratamento de colisão por encadeamento de nós, para implementar um inventário de itens em um jogo digital. A estrutura deve possibilitar, pelo menos, as seguintes ações: inserção e remoção de itens, localizar um item na estrutura hash. A remoção e busca devem escrever mensagem de erro na saída ("Erro: hash vazia!"), quando a hash estiver vazia. Na remoção ou na busca, caso a hash contenha elementos mas o item da busca não se encontra na tabela, o usuário deve ser informado da seguinte forma: ("Elemento inexistente!") . Os itens do inventários possuem os seguintes atributos: nome (uma string sem espaços), tipo (um único caracter) e valor (um inteiro).
-
-Para essa atividade você pode utilizar as seguintes opções de código fonte base: código fornecido 1 ou código fornecido2.
-
+Questão 3: Hash com encadeamento - Inventário de itens de jogo
+Implemente uma tabela hash, utilizando tratamento de colisão por encadeamento de nós, para implementar um inventário de itens em um jogo digital. A estrutura deve possibilitar, pelo menos, as seguintes ações: inserção e remoção de itens, localizar um item na estrutura hash. A remoção e busca devem escrever mensagem de erro na saída ("
+Erro: hash vazia!
+"), quando a hash estiver vazia. Na remoção ou na busca, caso a hash contenha elementos mas o item da busca não se encontra na tabela, o usuário deve ser informado da seguinte forma: ("
+Elemento inexistente!
+") . Os itens do inventários possuem os seguintes atributos: nome (uma string sem espaços), tipo (um único caracter) e valor (um inteiro).
+Para essa atividade você pode utilizar as seguintes opções de código fonte base:
+código fornecido 1
+ou
+código fornecido2
+.
 No início da execução, o programa lê o tamanho da tabela hash.
-
 Entradas:
-
 O programa deve aceitar os seguintes comandos:
-
 i: seguido de uma string, um caracter e um inteiro: para inserir um item no inventário. Caso exista colisão, a inserção na lista deve ser no ínicio.
 r seguido de um string: para retirar um item do inventário
 l seguido de um string: para localizar o determinado item no inventário
 p: imprimir toda a tabela hash
 f: para finalizar a execução do programa
 Saídas:
-
-Todas as saídas de comandos já estão implementadas na função principal dos códigos fontes informados anteriormente. Ao terminar a execução do programa, todos os itens da hash são escritos.
-
+Todas as saídas de comandos já estão implementadas na função principal dos códigos fontes informados anteriormente. Ao terminar a execução do programa, todos os itens da hash são  escritos.
 Exemplo de Entrada e Saída juntas:
-
 6
 r dez
 Erro na remoção: chave não encontrada!
@@ -55,18 +56,6 @@ f
 4: [um/1]
 5: [oito/8][dois/2]
 */
-
-/*
- * Tabela tabelaHash usando lista explícita
- * by Joukim, 2019
- * Atualizado por Renato, 2023
- */
-
-/*
- * Tabela tabelaHash usando lista explícita
- * by Joukim, 2019
- * Atualizado por Renato, 2023
- */
 
 #include <iostream>
 #include <string>
@@ -110,6 +99,7 @@ public:
         primeiro = novo;
         ++numElementos;
     }
+
     // Remove o noh com dada chave da lista.
     // Se a chave não existe, retorna informação.
     bool remove(const string &c)
@@ -138,9 +128,7 @@ public:
     {
         noh *atual = primeiro;
         while ((atual != NULL) and (atual->chave != c))
-        {
             atual = atual->proximo;
-        }
         if (atual == NULL)
             return false;
         tipoBuscado = atual->tipo;
@@ -153,9 +141,7 @@ public:
     {
         noh *atual = primeiro;
         while ((atual != NULL) and (atual->chave != c))
-        {
             atual = atual->proximo;
-        }
         if (atual == NULL)
             return false;
         return true;
@@ -198,26 +184,47 @@ private:
 
 public:
     // construtor padrão
-    tabelaHash(unsigned cap = 100) {}
-    ~tabelaHash() {}
+    tabelaHash(unsigned cap = 100)
+    {
+        numPosicoes = cap;
+        tabela = new lista[numPosicoes];
+    }
+    ~tabelaHash()
+    {
+        for (unsigned i = 0; i < numPosicoes; i++)
+        {
+            noh *atual = tabela[i].primeiro;
+            while (atual != NULL)
+            {
+                noh *proximo = atual->proximo;
+                delete atual;
+                atual = proximo;
+            }
+        }
+        delete[] tabela;
+    }
     // Insere um nó com dada chave e valor.
-    bool insere(const string &c, char &t, const int &v) {
+    bool insere(const string &c, char &t, const int &v)
+    {
         unsigned posicao = funcaoHash(c);
         if (tabela[posicao].verificaOcorrencia(c))
             return false;
         tabela[posicao].insere(c, t, v);
+        cout << "chave '" << c << "' inserida na posicao " << posicao << endl;
         return true;
     }
     // Retorna um valor associado a uma dada chave.
     // Se a chave não existe, retorna "NÃO ENCONTRADO!".
-    bool valor(const string &c, char &tipoBuscado, int &valorRetorno) {
+    bool valor(const string &c, char &tipoBuscado, int &valorRetorno)
+    {
         unsigned posicao = funcaoHash(c);
         if (tabela[posicao].busca(c, tipoBuscado, valorRetorno))
             return true;
         return false;
     }
     // Retira do hash um nó com dada chave.
-    bool remove(const string &c) {
+    bool remove(const string &c)
+    {
         unsigned posicao = funcaoHash(c);
         if (tabela[posicao].remove(c))
             return true;
@@ -244,8 +251,10 @@ int main()
     string chave;
     char tipo = 'a';
     int valor = -1;
+    bool comandoInvalido = false; // Adicionado para rastrear comandos inválidos
     do
     {
+        comandoInvalido = false; // Resetar para cada iteração do loop
         try
         {
             cin >> comando;
@@ -261,7 +270,7 @@ int main()
                 if (not tabela.remove(chave))
                     cout << "Erro na remoção: chave não encontrada!" << endl;
                 break;
-            case 'l': // remover
+            case 'l': // buscar
                 cin >> chave;
                 if (not tabela.valor(chave, tipo, valor))
                     cout << "Erro na busca: chave não encontrada!" << endl;
@@ -271,19 +280,23 @@ int main()
             case 'p': // mostrar estrutura
                 tabela.imprime();
                 break;
-
             case 'f': // finalizar
                 // checado no do-while
                 break;
-            default:
-                cerr << "comando inválido\n";
+            default: // Adicionado para tratar comandos inválidos
+                comandoInvalido = true;
+                break;
+            }
+            if (comandoInvalido) // Verifica se um comando inválido foi detectado
+            {
+                cout << "Comando inválido!" << endl;
             }
         }
-        catch (runtime_error &e)
+        catch (...)
         {
-            cout << e.what() << endl;
+            cout << "Ocorreu um erro inesperado." << endl;
         }
-    } while (comando != 'f'); // finalizar execução
+    } while (comando != 'f');
     tabela.imprime();
     cout << endl;
     return 0;
