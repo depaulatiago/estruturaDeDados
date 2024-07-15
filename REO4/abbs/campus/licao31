@@ -1,0 +1,38 @@
+1) Considere as seguintes afirmativas:
+I) Todo grafo conexo e sem ciclos pode representar uma árvore.
+II) Toda árvore em que cada nó possui somente zero, um ou dois filhos é considerada uma árvore binária.
+III)  Uma árvore binária pode ser definida como um nó raiz contendo duas subárvores, identificadas como subárvore direita (SD) e subárvore esquerda (SE).
+É correto afirmar que:
+R: Todas as afirmativas estão corretas.
+
+2) Faça a associação que entender pertinente.
+Trata a raiz, a percorre a subárvore esquerda, percorre a subárvore direita;
+R: Pré-ordem
+Percorre a subárvore esquerda, trata a raiz, percorre a subárvore direita;
+R: Em-ordem
+Percorre a subárvore esquerda, percorre a subárvore direita e trata a raiz.
+R: Pós-ordem
+
+3) Considere o seguinte percorrimento em pré-ordem: 68, 40, 21, 53, 60, 55, 99, 77, 96, 81, 123, 286.
+É correto afirmar que os nós folhas desta árvore são?
+R: 21, 55, 81, 286
+
+4) Considere o seguinte percorrimento em pré-ordem: 68, 40, 21, 53, 60, 55, 99, 77, 96, 81, 123, 286.
+Quem é o pai do elemento 96?
+R: 77
+
+5) Considere o seguinte percorrimento em pré-ordem: 68, 40, 21, 53, 60, 55, 99, 77, 96, 81, 123, 286.
+Quem é o avô do elemento 96?
+R: 99
+
+6) Considere o seguinte percorrimento em pré-ordem: 69, 54, 41, 56, 61, 82, 78, 124, 97, 100, 287.
+É correto afirmar que os nós intermediários desta árvore são?
+R: 54, 56, 82, 124, 97
+
+7) Considere o seguinte percorrimento em pós-ordem: 22, 54, 41, 61, 56, 78, 99, 287, 97, 82, 69.
+O filho à direita de 82 é?
+R: 97
+
+8) Considere o seguinte percorrimento em pós-ordem: 22, 54, 41, 61, 56, 78, 97, 287, 99, 82, 69.
+Qual é o terceiro elemento do nível 3, considerando da direita para à esquerda?
+R: 41 
