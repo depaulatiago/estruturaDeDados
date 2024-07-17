@@ -1,0 +1,35 @@
+1) Considere as seguintes afirmativas:
+I) A inserção em uma ABB, que não aceita chaves repetidas, acontece no momento que o ponteiro auxiliar encontrar uma posição nula fazendo um busca pelo mesmo a partir do nó raiz. Para a busca, devem ser comparados o valor da chave do nó que se deseja inserir com o valor do elemento que é apontado pelo ponteiro auxiliar. Caso o valor apontado pelo ponteiro auxiliar seja maior, a busca continua pelo filho à esquerda. Caso contrário, a busca continua pelo lado direito.
+II) Para realizar a remoção em uma árvore binária deve analisar a quantidade de filhos. Caso a árvore possua dois filhos, deve se escolher o sucessor ou antecessor do nó removido para assumir o local do nó removido. Em se tratando de filho único, o filho assume a posição do elemento removido. Caso o elemento não possua filhos, basta remover o elemento. 
+III)  A busca por um determinado elemento em uma árvore ABB se inicia no nó raiz. Caso o elemento desejado seja menor que o elemento apontado na árvore, a busca continua pela subárvore á esquerda, caso contrário, pela subárvore à direita. Esse processo se repete até que o chave seja encontrada, ou que encontre um valor nulo, informando que o elemento procurado não está na árvore.
+É correto afirmar que:
+R: Todas as afirmativas estão corretas.
+
+2) Faça a associação que entender pertinente.
+O maior elemento da subárvore esquerda.
+R: Antecessor
+O menor elemento da subárvore direita
+R: Sucessor
+Percorrimento sempre à esquerda até último elemento não nulo
+R: Min
+Percorrimento sempre à direita até último elemento não nulo
+R: Max
+
+3) Considere o seguinte percorrimento em pré-ordem: 68, 40, 21, 53, 60, 55, 99, 77, 96, 81, 123, 286.
+Quem é o antecessor do elemento 68?
+R: 60
+
+4) Considere o seguinte percorrimento em pré-ordem: 68, 40, 21, 53, 60, 55, 99, 77, 96, 81, 123, 286.
+Quem é o sucessor do elemento 68?
+R: 77
+
+5) Considere o seguinte percorrimento em pos-ordem: 06, 12, 10, 37, 20, 15, 49, 51, 66, 60, 212, 101, 88, 45.
+Qual são os nós folhas da árvore?
+R: 06, 12, 37, 49, 66, 212
+
+6) Considere o seguinte percorrimento em pos-ordem: 06, 12, 10, 37, 20, 15, 49, 51, 66, 60, 212, 101, 88, 45.
+Qual é sucessor do elemento 45? 49
+
+7)Considere o seguinte percorrimento em pos-ordem: 06, 12, 10, 37, 20, 15, 49, 51, 66, 60, 212, 101, 88, 45.
+Qual é antecessor do elemento 45?
+R: 37
