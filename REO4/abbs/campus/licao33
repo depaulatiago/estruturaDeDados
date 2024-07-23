@@ -1,0 +1,20 @@
+1) Considere as seguintes afirmativas:
+I) A implementação de uma ABB é feita geralmente utilizando-se nós ligados por indireção, com um ponteiro apontando para o nó raiz.
+II) Em uma ABB, cada nó aponta para seus dois filhos (direito e esquerdo) e armazena um valor. Caso não possua um de seus filhos, ou ambos, então o respectivo ponteiro irá apontar para NULO.
+III)  Em algumas implementações de ABB, os nós também apontam para o nó raiz (duplo encadeamento). Isso permite sair de um nó folha, por exemplo, e retornar à raiz, sem precisar usar recursão.
+É correto afirmar que:
+R:Somente as afirmativas I e II estão corretas.
+
+2)Considere as seguintes afirmativas:
+I) A maior parte dos métodos em uma ABB podem ser implementados de maneira recursiva ou iterativa. Em uma busca recursiva, por exemplo, cada nó verifica se não possui o valor e, em caso contrário, repassa a chamada para o filho adequado. Como os nós costumam ser privados, métodos que os utilizam costumam ser auxiliares e privados ou movidos para uma classe que representa os nós da lista.
+II) Entre os métodos básicos encontram-se inserção, remoção e busca. Além desses métodos, algumas implementações também disponibilizam métodos para encontrar o maior e o menor elemento. Entre os métodos auxiliares, encontra-se mínimo e máximo (se não disponibilizados como básicos), que são necessários para a remoção. No caso da remoção iterativa, também é disponibilizado um método para copiar um nó para uma nova posição (transplanta).
+III)  O procedimento iterativo de remoção consiste basicamente em encontrar o nó a ser removido e utilizar uma função auxiliar, transplanta, para auxiliar no processo de mudar um nó de posição. Após o “transplante” do nó, os ajustes finais, incluindo um dos filhos do nó sendo removido são realizados.
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+3) Considere as seguintes afirmativas:
+I) É possível alterar a versão iterativa e adicionar recursão apenas na etapa de busca e ajuste dos nós. Um problema nessa versão seria o uso da transplanta, uma vez que esse método não é necessariamente recursivo. Para a ABB tradicional isso não gera maiores problemas, entretanto isso atrapalha a implementação de árvores balanceadas.
+II) Uma implementação totalmente recursiva deveria fazer a troca, somente, pelo sucessor recursivamente, no caminho do sucessor até o nó sendo removido. Essa implementação existe e utiliza, ao invés da transplanta, um método para ir substituindo um nó pelo imediatamente menor
+III)  Uma vantagem da implementação totalmente recursiva é a de não precisar de um apontador para o pai do nó, uma vez que o retorno ao nó pai é feito pela própria recursão. Assim, as funções a seguir não fazem uso desse apontador. Por esse, e outros motivos, a versão recursiva de remoção em ABB deve ser preferida, a não ser que exista algum motivo para usar a versão iterativa.
+É correto afirmar que:
+R:Somente as afirmativas I e III estão corretas.
