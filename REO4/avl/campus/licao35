@@ -1,0 +1,32 @@
+1)Faça a associação que entender pertinente considerando as definições apresentadas no conjunto de slides indicado.
+Nó 1 --> FB = -2
+Nó 2 --> FB = -1
+R:Siml´pes esquerda
+
+Nó 1 --> FB = +2
+Nó 2 --> FB = +1
+R:Simples direita 
+
+Nó 1 --> FB = +2
+Nó 2 --> FB = -1
+R:Dupla direita
+
+Nó 1 --> FB = -2
+Nó 2 --> FB = +1
+R:Dupla esquerda
+
+2)Considere a seguinte inserção em uma AVL: 6, 23, 67, 38, 50, 41, 1, 30, 35, 37, 45
+Quantas rotações simples à esquerda haverá?
+R:3
+
+3)Considere a seguinte inserção em uma AVL: 6, 23, 67, 38, 50, 41, 1, 30, 35, 37, 45, 42
+Quantas rotações duplas direita-esquerda haverá? 
+R: 2
+
+4)Considere a seguinte inserção em uma AVL: 6, 23, 67, 38, 50, 41, 1, 30, 35, 37, 45, 42, 36
+Quantas rotações duplas esquerda-direita haverá?
+R:1
+
+5)Considere a seguinte inserção em uma AVL: 6, 23, 67, 38, 50, 41, 1, 30, 35, 37, 45, 42, 36, 40
+Quantas rotações simples à direita haverá?
+R:2

@@ -1,0 +1,27 @@
+1)Considere as seguintes afirmativas:
+I) As árvores AVLs possuem apenas métodos básicos das árvores binárias de busca (ABBs), como busca, percorrimento, etc. As operações de inserção e remoção seguem o mesmo padrão das ABBs, com ajustes para manutenção do balanceamento, usando rotações.
+II) As funções básicas das AVLs que não estão nas ABBs são: função que retorna a altura de um determinado nó, função que ajusta o valor de um nó a medida da necessidade e a função que calcula o fator de balanceamento entre duas subárvores.
+III) A sigla AVL das árvores foram assim definidas pelos seus criadores por conta do equilíbrio constante da árvore, dessa forma, do inglês, "Average Volume Length". Se traduzirmos, Comprimento Médio do Volume, retrata fielmente o comportamento da árvore.
+É correto afirmar que:
+R:Somente a afirmativa I está correta.
+
+2)Considere as seguintes afirmativas:
+I) Os algoritmos de rotação simples podem ser implementados como métodos da árvore ou dos nós.
+II) Os algoritmos de rotação podem ser implementados a partir do nó que se tornará a nova raiz da subárvore (nó b) ou a partir da raiz atual (nó a).
+III) Os algoritmos de rotação podem ser implementados de maneira mais simples caso a árvore não possua duplo encadeamento (apontador para o nó pai).
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+3)Considere as seguintes afirmativas:
+I) Para a implementação das rotações utilizando o encadeamento simples em uma árvore AVL é necessário que as funções sejam implementadas de maneira recursiva, uma vez que o pai do nó rotacionado precisa alterar o filho, após a rotação. Assim, o nó pai é quem chama o método, recebendo como retorno seu novo filho.
+II) Em uma árvore AVL, o processo de verificação da necessidade de balanceamento é acionado sempre que uma alteração (inserção/remoção) ocorre na árvore. A verificação é feita no ramo da árvore em que ocorreu a alteração, a partir do nó de altura mais baixa até a raiz, processo que ocorre em todo esse caminho.
+III) Em uma árvore AVL, o processo citado em II é geralmente feito por meio de um método próprio para essa verificação, denominado arrumarBalanceamento() ou similar. O método é invocado pelos métodos tradicionais de inserção e remoção, que, em geral, só possuem essa chamada de diferença significativa para uma árvore binária tradicional implementada por métodos recursivos.
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+4)Considere as seguintes afirmativas:
+I) A remoção na AVL é feita de maneira mais simples e eficiente usando a remoção totalmente iterativa. Isso ocorre porque o uso da transplanta obrigaria a ter que ajustar o balanceamento no caminho, tornando necessário, inclusive, o duplo encadeamento.
+II) A remoção de um elemento de uma AVL considera somente o filho envolvido na sua remoção, sendo substituído pelo menor ou maior de acordo com a definição utilizada pelo programador. 
+III) Na remoção de um elemento de uma AVL todos os elementos no caminho até o sucessor ou antecessor podem ter sua altura modificada, sendo necessário atualizá-las, da folha até a raiz da subárvore.
+É correto afirmar que:
+Somente a afirmativa III está correta.

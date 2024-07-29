@@ -1,0 +1,35 @@
+1)Considere as seguintes afirmativas:
+I) Árvores binárias de busca têm por objetivo prover acesso rápido à informação. O ideal é que a árvore esteja o mais equilibrada possível, ou seja, com aproximadamente o mesmo números de nós nas subárvores direita e esquerda.
+II) O balanceamento de um nó diz respeito à diferença de números de nós das subárvores esquerda(he) e direita(hd). 
+III)  O processo de reorganização de uma árvore pode ser bastante “caro” no que diz respeito à quantidade de operações e geralmente envolve rotação entre os nós.
+É correto afirmar que:
+R: Somente a III
+
+2)Considere as seguintes afirmativas:
+I) A altura de um nó é dada pela altura da subárvore em que ele é raiz. Nesse caso a altura de um nó é o tamanho do menor caminho (o número de arestas) dele até suas folhas. Em algumas situações, consideram-se que as folhas são nulas, portanto os nós folhas não-nulos tem altura 1.
+II) Em geral, não se consideram as folhas nulas, mas alguns algoritmos (como as AVL) fazem uso desse recurso para simplificar a implementação.
+III) Uma forma prática de calcular a altura de um nó é dada pelo fato que sua altura é dada pela maior altura entre seus dois filhos somado a uma unidade.
+É correto afirmar que:
+Somente as afirmativas II e III estão corretas.
+
+3)Considere a seguinte inserção dos elementos em uma árvore AVL: 14, 22, 51, 174, 201, 222, 239, 241, 255, 286, 306
+Qual é a altura do elemento 174, não se consideram as folhas nulas?
+R:3
+
+4)Considere a seguinte inserção dos elementos em uma árvore AVL: 14, 22, 100, 161, 201, 174, 51, 241, 239, 286, 306, 255, 222  
+Qual é a altura do elemento 161, considerando-se folhas nulas?
+R:5
+
+5)Considere as seguintes afirmativas:
+I) Uma árvore AVL é uma árvore binária de busca altamente balanceada, em que a cada inclusão ou remoção de elementos, procura-se reorganizar os nós de forma a mantê-la balanceada.
+II) Em uma árvore AVL a diferença entre as alturas da subárvores esquerda(Hesq) e direita(Hdir) deve ser de, no máximo, uma unidade. A diferença entre as alturas da subárvores esquerda e direita a partir de um determinado nó é denominado fator de balanceamento(FB) do nó, e não pode ser menor que -1 ou maior que 1 (Fb = Hesq - Hdir).
+III) Algumas implementações de árvore AVL realizam o cálculo do fator de balanceamento da diferença entre as alturas da subárvores direita e esquerda (Fb = Hdir -  Hesq). Isso é irrelevante desde que isso seja mantido em toda a implementação, sem a necessidade de qualquer ajustes quando se usa a diferença inversa entre os elementos(Fb = Hesq - Hdir).
+É correto afirmar que:
+R:Somente as afirmativas I e II estão corretas
+
+6)Considere as seguintes afirmativas:
+I) A implementação de AVLs faz uso de um atributo de altura em cada nó, para garantir o balanceamento entre subárvores esquerda e direita.
+II) Nas AVLs, para tornar o código mais simples e eficiente, implementações em geral consideram que qualquer nó não-nulo possui no mínimo altura 1. Nesse caso, as implementações geralmente consideram que os nós folhas são nulos, e possuem, nesse caso, altura 0.
+III) Operações de alteração nas árvores AVLs, como inserção e remoção de nós, implicam em atualizar a altura dos nós envolvidos no processo de alteração. A atualização da altura é feita do nó folha até o raiz. Por conta disso, inclusive, a maior parte das implementações de AVL utilizam-se de métodos recursivos, com encadeamento simples.
+É correto afirmar que:
+Todas estão corretas
