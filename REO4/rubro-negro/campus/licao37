@@ -1,0 +1,64 @@
+1) Considere as seguintes afirmativas sobre as árvores rubro negras:
+I) É uma árvore binária de busca, onde cada nó é constituído por: valor de uma chave, uma cor e ponteiros para subárvores direita e esquerda. Caso a estrutura possua duplo encadeamento, deve existir também um ponteiro para o nó pai.
+II) Todo nó da árvore é vermelho ou preto, a raiz é sempre preta, toda folha (nil) é preta, um nó vermelho tem ambos os filhos pretos e para todo nó, todo caminho do nó até as folhas contêm o mesmo número de nós pretos.
+III)  A implementação de uma árvore rubro-negra é similar à de uma árvore AVL tradicional, com ajustes para balanceamento quando da inserção ou remoção de nós. Os nós possuem um atributo adicional para armazenamento da cor. A maior parte das implementações utiliza um nó sentinela NIL, preto,  para o qual todas as folhas apontam. Sem isso, é necessário considerar nós nulos como folha de cor preta.
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+2)Considere as seguintes afirmativas:
+I) Para garantir o balanceamento, todas as inserções em uma árvore rubro-negra são feitas com nós vermelhos, à exceção da raiz.
+II) Quando o pai do nó inserido é preto, é necessário investigar o caminho, avaliando-se além do nó pai, o nó tio e o nó avô. 
+III) Quando o pai do nó inserido também é vermelho, não há problemas e a inserção é feita naturalmente.
+É correto afirmar que:
+R:Somente a afirmativa I está correta.
+
+3)Considere as seguintes afirmativas:
+I) Inserção - Caso 1 - Caso se tenha a seguinte situação:
+pai vermelho
+tio vermelho
+avô preto
+Basta alterar as cores do pai, tio e avô
+II) Inserção - Caso 2 - Caso se tenha a seguinte situação:
+pai vermelho
+tio preto
+avô preto
+nó inserido à direita do pai e pai à direita do avô 
+Rotação à esquerda, com pai tornando-se nova raiz da subárvore, seguida de alteração das cores do pai e do avô.
+III) Inserção - Caso 3 - Caso se tenha a seguinte situação:
+pai vermelho
+tio preto
+avô preto
+nó inserido à esquerda do pai e pai à esquerda do avô
+Rotação à direita, com pai tornando-se nova raiz da subárvore, seguida de alteração das cores do pai e do avô.
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+3)Considere as seguintes afirmativas:
+I) Inserção - Caso 4 - Caso se tenha a seguinte situação:
+pai vermelho
+tio preto
+avô preto
+nó inserido à esquerda do pai e pai à direita do avô
+Rotação dupla, a primeira à direita, segunda à esquerda, seguida de alteração das cores do nó e do avô.
+II) Inserção - Caso 5 - Caso se tenha a seguinte situação:
+pai vermelho
+tio preto
+avô preto
+nó inserido à direita do pai e pai à esquerda do avô
+Rotação dupla, a primeira à direita, segunda à esquerda, seguida de alteração das cores do nó e do avô.
+III) Inserção - Caso 6 - Caso se tenha a seguinte situação:
+pai vermelho
+tio vermelho
+avô vemelho
+nó inserido à esquerda do pai e pai à esquerda do avô
+Rotação tripla, a primeira à direita, segunda à esquerda, a terceira à direita, seguida de alteração das cores do nó, do tio e do avô.
+É correto afirmar que:
+R:Somente a afirmativa I está correta.
+
+4)Considere as seguintes afirmativas sobre o processo de remoção em uma árvore rubro-negra das árvores rubro negras:
+I) Caso o nó seja preto e substituído pelo sucessor ou antecessor vermelho, há problemas no balanceamento, faça uma rotação e troque a cor do antecessor ou sucessor para preto.
+II) Caso o nó seja preto e ele seja substituído por um filho vermelho, basta trocar a cor desse filho para preto e do pai para vermelho.
+III) Caso o nó removido seja vermelho, não há problemas no balanceamento, indiferente do processo de remoção.
+É correto afirmar que:
+R:Somente a afirmativa III está correta.
+
