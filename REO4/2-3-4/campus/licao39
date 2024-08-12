@@ -1,0 +1,27 @@
+1)Considere as seguintes afirmativas:
+I) Todos os nós folhas estão no mesmo nível (balanceamento). 
+II) São estruturas de dados equivalentes/isométricas às tabelas hash (ou seja, uma árvore 2-3-4 pode ser implementada como tabelas hash e vice-versa).
+III)  Em uma árvore 2-3-4, também chamada de árvore 2-4, cada nó interno pode ter um, dois ou três filhos. Nesse caso, cada nó interno armazena, respectivamente, duas, três ou quatro chaves.
+É correto afirmar que:
+R:Somente a afirmativa I está correta.
+
+2)Considere as seguintes afirmativas:
+I) Existem várias formas e abordagens para implementação de árvores 2-3 e 2-3-4, que são bastante similares. Algumas das abordagens criam entidades específicas para cada tipo de nó: nó-2, nó-3, nó-4, por exemplo. Uma implementação baseada em árvores B utiliza um nó com um vetor de chaves e um vetor de filhos, com um atributo para controle das posições utilizadas, bem como se é ou não folha. Em uma implementação estilo árvore B, como não há mudança na capacidade, os vetores de dados e de filhos podem ser alocados estaticamente. 
+II) O processo de remoção é muito similar ao de árvore 2-3. A remoção é sempre feita em nós folhas, caso uma chave em um nó interno precise ser removida, ela é substituída por sua sucessora ou antecessora. Caso a remoção na folha (da chave ou sua sucessora/antecessora) ocorra em um nó com duas ou três chaves, o processo se encerra, caso contrário será necessário rotacionar chaves ou fundir nós. 
+III) O processo de inserção em árvores 2-3-4 é similar ao de árvores 2-3. Procura-se o nó folha em que será feita a inserção. Caso o nó tenha uma ou duas chaves, procura-se a posição de inserção da chave e o processo se encerra. Caso o nó já possua três chaves, é necessário dividi-lo para realizar a inserção. Uma das chaves irá subir para o nó pai, separando os dois novos nós. Nesse caso, o nó pai é avaliado para verificar se não deve também ser dividido. 
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+3)Considere as seguintes afirmativas:
+I) A inserção em uma árvore 2-3-4 envolve uma série de passos menores e pode ser feita de maneira recursiva ou iterativa. Quando da inserção, busca-se um nó folha. Caso este não esteja cheio, efetua-se uma inserção em um nó folha não cheio (que basicamente insere a chave no vetor de chaves).
+II) A inserção em uma árvore 2-3-4, se o nó folha estiver cheio, é necessário dividi-lo, criando um novo nó e verificando a chave que será utilizada para separar o nó atual e o novo nó. Com isso, é necessário retornar recursivamente a chave promovida  e o nó criado.
+III) A inserção em uma árvore 2-3-4, pode ocorrer de, quando da divisão de um nó folha, ser necessário também dividir o nó pai (e outros antecessores), recursivamente. Em todos os casos de divisão, a chave promovida e o nó criado para dividir os dados deverão ser ajustados no sucessor do nó dividido. Dessa maneira, é necessário efetuar uma inserção em um nó intermediário não cheio. Neste caso, além de inserir a chave no vetor de chaves, é necessário também inserir o nó criado no vetor de nós filhos.
+É correto afirmar que:
+Todas as afirmativas estão corretas.
+
+4)Considere as seguintes afirmativas:
+I) O percorrimento em árvores 2-3 ou 2-3-4 é relativamente simples, comparado à árvore binária padrão. Nesse caso apenas, basta levar em conta que cada nó pode possuir mais que dois filhos. Com a busca, é necessário percorrer o vetor de chaves de um nó, para encontrar o filho adequado para descer na árvore, caso seja necessário.
+II) A remoção em árvores 2-3 e 2-3-4 é baseada na remoção em árvores binárias. Uma vez encontrada a chave, é necessário verificar se a mesma encontra-se em nó folha. Se não se encontra, ela deve ser substituída pela chave antecessora ou sucessora (que encontra-se em um nó folha). Quando da remoção da chave ou de sua substituta no nó folha, é necessário verificar se o nó não ficará vazio. Se o nó ficar vazio, será necessário verificar se o(s) nós irmão(s) não possuem duas ou três chaves. Nesse caso, é feita uma rotação, passando um chave do nó irmão para o nó pai e do nó pai para o nó em que houve a remoção de chave. 
+III)  A remoção em árvores 2-3 e 2-3-4, caso o nó esteja para ficar vazio e seus irmãos possuem apenas uma chave, é necessário efetuar a fusão de nós, envolvendo nó pai e nó irmão: a chave do nó pai que separa o nó vazio com o seu irmão irá descer para ficar no nó irmão. Nesse processo de fusão, é necessário verificar se o nó pai também não irá ficar vazio, repetindo o processo no nível superior na árvore. Pode ocorrer da fusão ir da folha até a raiz. 
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.

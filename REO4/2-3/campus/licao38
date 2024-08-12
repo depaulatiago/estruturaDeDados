@@ -1,0 +1,34 @@
+1)Considere as seguintes afirmativas:
+I) Árvores binárias de busca têm por objetivo prover acesso rápido à informação.
+II) O ideal é que a árvore esteja o mais equilibrada possível, ou seja, com aproximadamente o dobro da largura nas subárvores da direita em relação à esquerda.
+III) Após muitas inclusões e remoções de elementos a árvore resultante pode ser degenerada, ou seja, desequilibrada e, para garantir que isso não ocorra, é preciso que os nós da árvore sejam reorganizados.
+É correto afirmar que:
+R:Somente as afirmativas I e III estão corretas.
+
+2)Considere as seguintes afirmativas:
+I) Árvores 2-3 e 2-3-4 são equivalentes em termos de eficiência a implementações de rubro-negras para operações de inserção, remoção e busca.
+II) Árvores 2-3 e 2-3-4 são tipos especiais de árvores B que são utilizados para uso em memória em substituição à árvores binárias.
+III) Árvores B podem ser entendidas como uma generalização de árvores binárias, em que cada nó pode, somente, ter um ou dois filhos, além da chave. 
+É correto afirmar que:
+R:Somente as afirmativas I e II estão corretas.
+
+3)Considere as seguintes afirmativas:
+I) Em uma árvore 2-3, caso um nó interno tenha três filhos, então: i) valores maiores que sua primeira chave estarão à esquerda desse nó; ii) valores menores que sua segunda chave estarão à direita do nó; iii) valores menores que a primeira chave mas maiores que a segunda chave estarão no nó central.
+II) Em uma árvore 2-3, caso um nó interno tenha dois filhos, as chaves menores que ele estão à sua direita e os maiores à sua esquerda, como em uma árvore binária normal.
+III)  Em uma árvore 2-3, cada nó interno pode ter dois ou três filhos. Nesse caso, cada nó interno armazena, respectivamente, uma ou duas chaves. Todos os nós folhas estão no mesmo nível (balanceamento). 
+É correto afirmar que:
+R:Somente a afirmativa III está correta.
+
+4)Considere as seguintes afirmativas:
+I) O processo de inserção em árvores 2-3 é relativamente simples. Procura-se o nó folha em que será feita a inserção. Caso o nó tenha uma única chave, procura-se a posição de inserção da chave (antes ou depois da existente) e o processo se encerra. Caso o nó já possua duas chaves, é necessário dividi-lo para realizar a inserção.
+II) Em uma árvore 2-3, dada uma chave qualquer, valores menores que esta chave estarão à esquerda (seja em uma chave no mesmo nó ou em um dos nós à esquerda). O mesmo raciocínio vale para valores maiores.
+III)  Em uma árvore 2-3, o processo de divisão implica que uma das chaves irá subir para o nó pai, separando os dois novos nós. Nesse caso, o nó pai é avaliado para verificar se não deve também ser dividido. Parte das implementações realizam a divisão antes da inserção, enquanto outras inserem o valor para dividir posteriormente.
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
+
+5)Considere as seguintes afirmativas:
+I) Em uma árvore 2-3, a remoção é sempre feita em nós folhas, caso uma chave em um nó interno precise ser removida, ela é substituída por sua sucessora ou antecessora.
+II) Em uma árvore 2-3, caso a remoção na folha (da chave ou sua sucessora/antecessora) ocorra em um nó com duas chaves, o processo se encerra, caso contrário será necessário rotacionar chaves ou fundir nós. 
+III)  Em uma árvore 2-3, quando um nó fica vazio, mas seu irmão possui duas chaves, então é possível rotacionar chaves (envolvendo o nó pai) para manter o equilíbrio. Quando um nó fica vazio e seus irmãos possuem apenas uma chave, é necessário efetuar a fusão de nós, envolvendo nó pai e nó irmão: a chave do nó pai que separa o nó vazio com o seu irmão irá descer para ficar no nó irmão. Com isso, é necessário verificar se o nó pai também não irá ficar vazio.
+É correto afirmar que:
+R:Todas as afirmativas estão corretas.
